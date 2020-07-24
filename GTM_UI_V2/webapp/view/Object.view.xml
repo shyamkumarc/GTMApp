@@ -1,0 +1,256 @@
+<mvc:View controllerName="com.sdc.gtmwl.GTM_UI_V2.controller.Object" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:core="sap.ui.core"
+	xmlns:richtext="sap.ui.richtexteditor" xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:m="sap.m"
+	xmlns:semantic="sap.f.semantic">
+	<!--<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}"-->
+	<!--	busyIndicatorDelay="{objectView>/delay}">-->
+	<!--	<semantic:content>-->
+	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+				<expandedHeading>
+					<m:Title text="{PackageTitle}" wrapping="true"/>
+				</expandedHeading>
+				<snappedHeading>
+					<m:FlexBox fitContainer="true" alignItems="Center">
+						<!--<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>-->
+						<m:Title text="{PackageTitle}" wrapping="true"/>
+					</m:FlexBox>
+				</snappedHeading>
+				<expandedContent>
+					<m:Text text="{umbrellaTitle}"/>
+				</expandedContent>
+				<snappedContent>
+					<m:Text text="{umbrellaTitle}"/>
+				</snappedContent>
+				<snappedTitleOnMobile>
+					<m:Title text="{umbrellaTitle} -{umbrellaTitle} "/>
+				</snappedTitleOnMobile>
+				<actions>
+					<!--<m:OverflowToolbarButton icon="sap-icon://pull-down" text="show section" type="Emphasized" tooltip="pull-down"/>-->
+					<!--<m:OverflowToolbarButton icon="sap-icon://show" text="show state" tooltip="show"/>-->
+					<m:Button text="Save" enabled="true" press="onSave"/>
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+		<headerContent>
+			<m:FlexBox alignItems="Start" justifyContent="Start">
+				<!--<m:Avatar class="sapUiSmallMarginEnd" src="./test-resources/sap/uxap/images/imageID_275314.png" displaySize="L"/>-->
+				<!--<layout:VerticalLayout>-->
+				<m:Link text="Folder Link" href="{Folderlink}"/>
+				<!--</layout:VerticalLayout>-->
+			</m:FlexBox>
+			<m:FlexBox alignItems="Start" justifyContent="End">
+				<m:VBox>
+					<m:Title text="Status:" class="sapUiTinyMarginBottom"/>
+					<m:ObjectStatus text="{GTMStatus/Text}" state="Success" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+			</m:FlexBox>
+			<!--<layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">-->
+			<!--<m:Image src="./test-resources/sap/uxap/images/linkedin.png"/>-->
+			<!--<m:Image src="./test-resources/sap/uxap/images/Twitter.png" class="sapUiSmallMarginBegin"/>-->
+			<!--</layout:HorizontalLayout>-->
+			<!--<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">-->
+			<!--	<m:Label text="Hello! I am Denise and I use UxAP"/>-->
+			<!--	<m:VBox>-->
+			<!--		<m:Label text="Achieved goals"/>-->
+			<!--		<m:ProgressIndicator percentValue="30" displayValue="30%"/>-->
+			<!--	</m:VBox>-->
+			<!--</layout:VerticalLayout>-->
+			<!--<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">-->
+			<!--	<m:Label text="San Jose, USA"/>-->
+			<!--</layout:VerticalLayout>-->
+		</headerContent>
+		<sections>
+			<ObjectPageSection id="HeaderSectionD" title="Header-Display">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS2D">
+						<blocks>
+							<m:VBox>
+								<f:SimpleForm id="SimpleFormDisplayColumn_oneGroup234D" editable="false" layout="ColumnLayout" title="SDC details" columnsM="2" columnsL="2"
+									columnsXL="3">
+									<f:content>
+										<!--<core:Title text="Package"/>-->
+										<m:Label text="Status" labelFor="CBStatusD"/>
+										<m:Text id="CBStatusD" text="{GTMStatus/Text}"/>
+										<m:Label text="Package Type" labelFor="CBPackageTypeD"/>
+										<m:Text id="CBPackageTypeD" text="{PackageType/Text}"/>
+										<!--<core:Title text="Title"/>-->
+										<m:Label text="Title" labelFor="titleD"/>
+										<m:Text id="titleD" text="{PackageTitle}"/>
+										<m:Label text="Umbrella title" labelFor="UmbrellaTitleD"/>
+										<m:Text id="UmbrellaTitleD" text="{umbrellaTitle}"/>
+										<!--<core:Title text="Team"/>-->
+										<m:Label text="Practice" labelFor="CBPracticeD"/>
+										<m:Text id="CBPracticeD" text="{Practice/Text}"/>
+										<m:Label text="Responsible" labelFor="CBResponsibleD"/>
+										<m:Text id="CBResponsibleD" text="{GTMResponsible/Name}"/>
+										<!--<m:Label text="Folder Link" labelFor="Link"/>-->
+										<!--<m:Input id="Link" type="Text" value="{Folderlink}" class="sapUiSmallMarginBottom" placeholder="Link to Folder.."/>-->
+										<!--"PackageTitle": "title 1", -->
+										<!--"umbrellaTitle": "1 umbrella", -->
+										<!--"Comments": "1 comnet", -->
+										<!--"Folderlink": "link", -->
+									</f:content>
+								</f:SimpleForm>
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection id="HeaderSection" title="Header">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS2">
+						<blocks>
+							<f:SimpleForm id="SimpleFormDisplayColumn_oneGroup234" editable="true" layout="ColumnLayout" title="SDC details" columnsM="2" columnsL="2"
+								columnsXL="4">
+								<f:content>
+									<!--<core:Title text="Package"/>-->
+									<m:Label text="Status" labelFor="CBStatus"/>
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBStatus" items="{ path: '/GTMStatuses_all', sorter: { path: 'Text' }, suspended: false }"
+										selectedKey="{GTMStatus_ID}">
+										<core:ListItem key="{ID}" text="{Text}"/>
+									</m:ComboBox>
+									<m:Label text="Package Type" labelFor="CBPackageType"/>
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBPackageType"
+										items="{ path: '/PackageTypes_all', sorter: { path: 'Text' }, suspended: false }" selectedKey="{PackageType_ID}">
+										<core:ListItem key="{ID}" text="{Text}"/>
+									</m:ComboBox>
+									<!--<core:Title text="Title"/>-->
+									<m:Label text="Title" labelFor="title"/>
+									<m:Input id="title" type="Text" value="{PackageTitle}" class="sapUiSmallMarginBottom" placeholder="Enter Title..."/>
+									<m:Label text="Umbrella title" labelFor="UmbrellaTitle"/>
+									<m:Input id="UmbrellaTitle" type="Text" value="{umbrellaTitle}" class="sapUiSmallMarginBottom" placeholder="Enter Umbrella title ..."/>
+									<!--<core:Title text="Team"/>-->
+									<m:Label text="Practice" labelFor="CBPractice"/>
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBPractice" items="{ path: '/Practices_all', sorter: { path: 'Text' }, suspended: false }"
+										selectedKey="{Practice_ID}">
+										<core:ListItem key="{ID}" text="{Text}"/>
+									</m:ComboBox>
+									<m:Label text="Responsible" labelFor="CBResponsible"/>
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBResponsible" items="{ path: '/Users_all', sorter: { path: 'Name' }, suspended: false }"
+										selectedKey="{GTMResponsible_ID}">
+										<core:ListItem key="{ID}" text="{Name}"/>
+									</m:ComboBox>
+									<m:Label text="Folder Link" labelFor="Link"/>
+									<m:Input id="Link" type="Text" value="{Folderlink}" class="sapUiSmallMarginBottom" placeholder="Link to Folder.."/>
+									<!--"PackageTitle": "title 1", -->
+									<!--"umbrellaTitle": "1 umbrella", -->
+									<!--"Comments": "1 comnet", -->
+									<!--"Folderlink": "link", -->
+								</f:content>
+							</f:SimpleForm>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection id="commentSection" title="Comments/Notes">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS3">
+						<blocks>
+							<layout:VerticalLayout class="sapUiContentPadding" width="100%">
+								<richtext:RichTextEditor width="100%" height="600px" value="{Comments}" customToolbar="true" showGroupFont="true" showGroupLink="true"
+									showGroupInsert="true" ready="onEditotReady"/>
+								<!--<m:FormattedText htmlText="{Comments}"/>-->
+							</layout:VerticalLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection id="commentSectionD" title="Comments/Notes-DIsplay">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS3D">
+						<blocks>
+							<!--<layout:VerticalLayout class="sapUiContentPadding" width="100%">-->
+								<m:FormattedText htmlText="{Comments}"/>
+							<!--</layout:VerticalLayout>-->
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection id="goalsSection" title="More Info.">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS1">
+						<blocks>
+							<layout:VerticalLayout class="sapUiContentPadding" width="100%">
+								<m:Label text="Technologies" labelFor="MSTechnologies"/>
+								<m:MultiInput id="MSTechnologies" tokenUpdate="_onTokenUpdate" showValueHelp="true"
+									tokens="{ path: 'Technologies', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}" valueHelpRequest="handleValueHelp">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+								<m:Label text="Industries" labelFor="MSIndustries"/>
+								<m:MultiInput id="MSIndustries" tokenUpdate="_onTokenUpdate" showValueHelp="true"
+									tokens="{ path: 'Industries', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}" valueHelpRequest="handleValueHelp">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+								<m:Label text="Solution Processes" labelFor="MSSolProcesses"/>
+								<m:MultiInput id="MSSolProcesses" tokenUpdate="_onTokenUpdate" showValueHelp="true"
+									tokens="{ path: 'SolPros', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}" valueHelpRequest="handleValueHelp">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+								<m:Label text="Phases" labelFor="MSPhases"/>
+								<m:MultiInput id="MSPhases" tokenUpdate="_onTokenUpdate" showValueHelp="true"
+									tokens="{ path: 'Phases', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}" valueHelpRequest="handleValueHelp">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+							</layout:VerticalLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection id="goalsSectionD" title="More Info.-Display" visible="true">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS1D">
+						<blocks>
+							<layout:VerticalLayout class="sapUiContentPadding" width="100%">
+								<m:Label text="Technologies" labelFor="MSTechnologiesD"/>
+								<m:MultiInput id="MSTechnologiesD" tokens="{ path: 'Technologies', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}"
+									editable="false">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+								<m:Label text="Industries" labelFor="MSIndustriesD"/>
+								<m:MultiInput id="MSIndustriesD" tokens="{ path: 'Industries', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}"
+									editable="false">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+								<m:Label text="Solution Processes" labelFor="MSSolProcessesD"/>
+								<m:MultiInput id="MSSolProcessesD" tokens="{ path: 'SolPros', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}"
+									editable="false">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+								<m:Label text="Phases" labelFor="MSPhasesD"/>
+								<m:MultiInput id="MSPhasesD" tokens="{ path: 'Phases', sorter: { path: 'GTMID_GTMID' }, parameters :{ expand : 'Value' }}" editable="false">
+									<m:tokens>
+										<m:Token key="{Value_ID}" text="{Value/Text}"/>
+									</m:tokens>
+								</m:MultiInput>
+							</layout:VerticalLayout>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		<!--<footer>-->
+		<!--	<m:OverflowToolbar id='a1'>-->
+		<!--		<m:ToolbarSpacer id='a2'/>-->
+		<!--		<m:Button id='a3' type="Accept" text="Accept"/>-->
+		<!--		<m:Button id='a4' type="Reject" text="Reject"/>-->
+		<!--	</m:OverflowToolbar>-->
+		<!--</footer>-->
+	</ObjectPageLayout>
+	<!--	</semantic:content>-->
+	<!--</semantic:SemanticPage>-->
+</mvc:View>

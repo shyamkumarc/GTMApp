@@ -1,0 +1,38 @@
+{
+    "name": "GTM_CAP-srv",
+    "description": "Generated from ../package.json, do not change!",
+    "version": "1.0.0",
+    "dependencies": {
+       "@sap/cds": "^3.18.3",
+	    "@sap/odata-commons": "^2.3.2",
+        "@sap/hana-client": "^2.4.196",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.4.22",
+        "@sap/approuter": "6.8.0",
+		"@sap/xsenv": "^2.2.0",
+		"@sap/xssec": "^2.2.5",
+		"body-parser": "^1.19.0",
+		"express": "^4.17.1",
+		"passport": "^0.4.1",
+		"path": "^0.12.7",
+		"request": "*"
+    },
+    "engines": {
+        "node": "^10 || ^12"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "postinstall": "npm dedupe && node .build.js",
+        "startv4": "node ./node_modules/@sap/cds/bin/cds.js serve gen/csn.json",
+        "start": "node index.js",
+        "watch": "nodemon -w . -i node_modules/**,.git/** -e cds -x npm run build"
+    },
+    "private": true,
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "hana",
+                "model": "gen/csn.json"
+            }
+        }
+    }
+}

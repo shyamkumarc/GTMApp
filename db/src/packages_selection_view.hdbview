@@ -1,0 +1,23 @@
+VIEW  GTM_DATAMODEL_PACKAGESVIEW as SELECT 	
+    "packages".*,
+	"techname"."ID" as technologyCodes,
+	"indname"."ID" as industryCodes,
+	"solprosname"."ID" as solProsCodes,
+	"phasename"."ID"  as phaseCodes
+FROM "GTM_DATAMODEL_TXPACKAGES" as "packages"
+left outer  join "GTM_DATAMODEL_TXTECHNOLOGIES" as "tech"
+on "tech"."GTMID_GTMID" = "packages"."GTMID"
+left outer join "GTM_DATAMODEL_MDTECHNOLOGIES" as "techname"
+on "techname"."ID" = "tech"."VALUE_ID"
+left outer  join "GTM_DATAMODEL_TXINDUSTRIES" as "ind"
+on "ind"."GTMID_GTMID" = "packages"."GTMID"
+left outer join "GTM_DATAMODEL_MCINDUSTRIES" as "indname"
+on "indname"."ID" = "ind"."VALUE_ID"
+left outer  join "GTM_DATAMODEL_TXSOLPROS" as "solpros"
+on "solpros"."GTMID_GTMID" = "packages"."GTMID"
+left outer join "GTM_DATAMODEL_MCINDUSTRIES" as "solprosname"
+on "solprosname"."ID" = "solpros"."VALUE_ID"
+left outer  join "GTM_DATAMODEL_TXPHASES" as "phase"
+on "phase"."GTMID_GTMID" = "packages"."GTMID"
+left outer join "GTM_DATAMODEL_MCINDUSTRIES" as "phasename"
+on "phasename"."ID" = "phase"."VALUE_ID"
