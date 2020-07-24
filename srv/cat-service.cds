@@ -14,6 +14,6 @@ entity SolutionProcesses_all as projection on dataModel.MCSolutionProcesses ;
 entity Industries_all as projection on dataModel.MCIndustries ;
 entity PackageTypes_all as projection on dataModel.MCPackageTypes;
 entity GTMStatuses_all as projection on dataModel.MCGTMStatuses ;
-entity PackageView as 
+entity PackageView as  
 select from dataModel.PackagesView  { * , key GTMID } 
 }

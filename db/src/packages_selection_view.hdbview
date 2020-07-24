@@ -4,7 +4,7 @@ VIEW  GTM_DATAMODEL_PACKAGESVIEW as SELECT
 	"indname"."ID" as industryCodes,
 	"solprosname"."ID" as solProsCodes,
 	"phasename"."ID"  as phaseCodes
-FROM "GTM_DATAMODEL_TXPACKAGES" as "packages"
+FROM "GTM_DATAMODEL_TXPACKAGES" as "packages" 
 left outer  join "GTM_DATAMODEL_TXTECHNOLOGIES" as "tech"
 on "tech"."GTMID_GTMID" = "packages"."GTMID"
 left outer join "GTM_DATAMODEL_MDTECHNOLOGIES" as "techname"
