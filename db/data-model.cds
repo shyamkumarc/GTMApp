@@ -21,6 +21,8 @@ technologyCodes : Integer;
 industryCodes: Integer;
 solProsCodes: Integer;
 phaseCodes: Integer;
+status: String;
+packageType : String
 }
   
   

@@ -7,10 +7,16 @@ sap.ui.define([
 	'sap/ui/model/Filter',
 	'sap/m/Token',
 	'sap/ui/model/FilterOperator',
-	'sap/m/Tokenizer'
-], function (BaseController, JSONModel, History, formatter, Fragment, Filter, Token, FilterOperator, Tokenizer) {
-	"use strict";
+	'sap/m/Tokenizer',
+	"sap/m/Button",
+	"sap/m/Dialog",
+	"sap/m/MessageToast",
+	"sap/m/Text",
 
+], function (BaseController, JSONModel, History, formatter, Fragment, Filter, Token, FilterOperator, Tokenizer, Button, Dialog,
+	MessageToast, Text) {
+	"use strict";
+	var addedTokens = [];
 	return BaseController.extend("com.sdc.gtmwl.GTM_UI_V2.controller.Object", {
 
 		formatter: formatter,
@@ -31,7 +37,7 @@ sap.ui.define([
 				oViewModel = new JSONModel({
 					busy: true,
 					delay: 0,
-					saveVisible: true
+					edit: false
 				});
 
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
@@ -57,10 +63,111 @@ sap.ui.define([
 		 * @public
 		 */
 		onSave: function (oEvent) {
-			this.getView().getModel().submitChanges();
+			var busyDialog = new sap.m.BusyDialog();
+			busyDialog.open();
+			this.getModel().submitChanges({ // submit for backend update
+				success: function (data, response) { //Save button - save successful
+					// oDialog.close();
+					busyDialog.close();
+					var errors = false;
+					for (var i = 0; i < data.__batchResponses.length; i++) {
+						try {
+							if (data.__batchResponses[i]["response"]["statusCode"] !== "200") {
+								var errorMessage = JSON.parse(data.__batchResponses[i]["response"]["body"]);
+								sap.m.MessageBox.error(errorMessage["error"]["message"]["value"]);
+								errors = true;
+								break;
+							}
+						} catch (err) {
+
+						}
+
+					}
+					if (!errors) { // save successful
+						MessageToast.show("Saved successfully!");
+						this.getModel("objectView").setProperty("/edit", false);
+					}
+
+				}.bind(this),
+				error: function (oError) { //Save button - save failed 
+					// oDialog.close();
+					busyDialog.close();
+					MessageToast.show('Failed to update');
+					this.getModel("objectView").setProperty("/edit", false);
+				}.bind(this)
+			}); // submit for backend update
 		},
-		onEditotReady: function()
-		{
+		onEdit: function (oEvent) {
+			this.getView().getModel("objectView").setProperty("/edit", true);
+		},
+		onCancel: function (oEvent) {
+			if (this.getModel().hasPendingChanges(true)) {
+				//open dialog box for confirmation
+				var oDialog = new Dialog({
+					title: 'Confirm',
+					type: 'Message',
+					content: new Text({
+						text: 'You have unsaved changes. Do you want to save them?'
+					}),
+					beginButton: new Button({ //Save button
+						type: "Emphasized",
+						text: 'Save',
+						press: function () { //Save button press
+							var busyDialog = new sap.m.BusyDialog();
+							busyDialog.open();
+							this.getModel().submitChanges({ // submit for backend update
+								success: function (data, response) { //Save button - save successful
+									oDialog.close();
+									busyDialog.close();
+									var errors = false;
+									for (var i = 0; i < data.__batchResponses.length; i++) {
+										try {
+											if (data.__batchResponses[i]["response"]["statusCode"] !== "200") {
+												var errorMessage = JSON.parse(data.__batchResponses[i]["response"]["body"]);
+												sap.m.MessageBox.error(errorMessage["error"]["message"]["value"]);
+												errors = true;
+												break;
+											}
+										} catch (err) {
+
+										}
+
+									}
+									if (!errors) { // save successful
+										MessageToast.show("Saved successfully!");
+										this.getModel("objectView").setProperty("/edit", false);
+									}
+
+								}.bind(this),
+								error: function (oError) { //Save button - save failed 
+									oDialog.close();
+									busyDialog.close();
+									MessageToast.show('Failed to update');
+									this.getModel("objectView").setProperty("/edit", false);
+								}.bind(this)
+							}); // submit for backend update
+
+						}.bind(this)
+					}),
+					endButton: new Button({
+						text: 'Cancel',
+						press: function () {
+							this.getModel().resetChanges(null, true);
+							this.getModel("objectView").setProperty("/edit", false);
+							oDialog.close();
+						}.bind(this)
+					}),
+					afterClose: function () {
+						oDialog.destroy();
+					}
+				});
+
+				oDialog.open();
+
+			} else
+				this.getModel("objectView").setProperty("/edit", false);
+		},
+		onEditotReady: function () {
 			this.byId("HeaderSectionD").focus();
 		},
 		onNavBack: function () {
@@ -86,14 +193,37 @@ sap.ui.define([
 		_onObjectMatched: function (oEvent) {
 			var sObjectId = oEvent.getParameter("arguments").objectId;
 			this.sObjectId = sObjectId;
-			this.getModel().metadataLoaded().then(function () {
-				var sObjectPath = this.getModel().createKey("Packages", {
-					GTMID: sObjectId
-				});
-				// // this._bindView({ path: '/'+ sObjectPath , parameters: { expand: 'GTMStatus'}});
-				// this._bindView({ path: '/Packages(1)' , parameters: { expand: 'GTMStatus'}});
-				this._bindView("/" + sObjectPath);
-			}.bind(this));
+			if (sObjectId == "Add") {
+
+				this.getView().getModel().read('PackageView', {
+						urlParameters: {
+							"$orderby": "GTMID",
+							"$select": "GTMID",
+							"$top": 1
+						},
+						success: function (oData, response) {
+							var oEntry = this.getView().getModel().createEntry("/Packages",{properties:{GTMID:oData.d.results[0].GTMID + 1 }});
+							this.getView().setBindingContext(oEntry);
+						}.bind(this),
+						error: function (oError) {}
+					);
+				}
+			} else {
+				this.getModel().metadataLoaded().then(function () {
+					var sObjectPath = this.getModel().createKey("Packages", {
+						GTMID: sObjectId
+					});
+
+					// // this._bindView({ path: '/'+ sObjectPath , parameters: { expand: 'GTMStatus'}});
+					// this._bindView({ path: '/Packages(1)' , parameters: { expand: 'GTMStatus'}});
+					this._bindView("/" + sObjectPath);
+				}.bind(this));
+			}
+			var aDeferredGroups = this.getModel().getDeferredGroups();
+			// Append delete's groupId to the list:
+			aDeferredGroups = aDeferredGroups.concat(["deleteTokens"]);
+			// Set  groups  deferred:
+			this.getModel().setDeferredGroups(aDeferredGroups);
 			this.getView().getModel().setDefaultBindingMode("TwoWay");
 			this.getModel("objectView").setProperty("/saveVisible", this.getView().getModel().hasPendingChanges());
 		},
@@ -260,13 +390,18 @@ sap.ui.define([
 						key: oItem.getBindingContext().getObject().ID,
 						text: oItem.getTitle()
 					}));
-					this.getView().getModel().createEntry("/" + sEntityPath, {
+					var context = this.getView().getModel().createEntry("/" + sEntityPath, {
 						properties: {
 							GTMID_GTMID: parseInt(this.sObjectId, 10),
 							Value_ID: oItem.getBindingContext().getObject().ID,
 						}
 					});
-					this.getModel("objectView").setProperty("/saveVisible", this.getView().getModel().hasPendingChanges());
+					addedTokens.push({
+						key: oItem.getBindingContext().getObject().ID,
+						entity: sEntityPath,
+						context: context
+					});
+					// this.getModel("objectView").setProperty("/edit", this.getView().getModel().hasPendingChanges());
 				}.bind(this));
 			}
 		},
@@ -276,38 +411,77 @@ sap.ui.define([
 			var aTokens,
 				sEntityPath = "",
 				i;
-			if (oEvent.getSource().getId().indexOf("MSTechnologies") > -1)
+			var oMultiInput = oEvent.getSource();
+			if (oMultiInput.getId().indexOf("MSTechnologies") > -1)
 				sEntityPath = "Technologies";
-			else if (oEvent.getSource().getId().indexOf("MSIndustries") > -1)
+			else if (oMultiInput.getId().indexOf("MSIndustries") > -1)
 				sEntityPath = "Industries";
-			else if (oEvent.getSource().getId().indexOf("MSSolProcesses") > -1)
+			else if (oMultiInput.getId().indexOf("MSSolProcesses") > -1)
 				sEntityPath = "SolProcesses";
-			else if (oEvent.getSource().getId().indexOf("MSPhases") > -1)
+			else if (oMultiInput.getId().indexOf("MSPhases") > -1)
 				sEntityPath = "Phases";
 
 			if (oEvent.getParameter('type') === Tokenizer.TokenUpdateType.Added) {
 				aTokens = oEvent.getParameter('addedTokens');
 				aTokens.forEach(function (token) {
 					debugger;
-					this.getView().getModel().createEntry("/" + sEntityPath, {
+					var context = this.getView().getModel().createEntry("/" + sEntityPath, {
 						properties: {
 							GTMID_GTMID: this.sObjectId,
 							Value_ID: token.getKey()
 						}
 					});
+
+					addedTokens.push({
+						key: token.getKey(),
+						entity: sEntityPath,
+						context: context
+					});
+
 				}.bind(this));
 
 			} else if (oEvent.getParameter('type') === Tokenizer.TokenUpdateType.Removed) {
 				aTokens = oEvent.getParameter('removedTokens');
 				aTokens.forEach(function (token) {
 					debugger;
-					this.getView().getModel().remove("/" + sEntityPath + "(GTMID_GTMID=" + parseInt(this.sObjectId, 10) + ",Value_ID=" + parseInt(
-						token.getKey(), 10) + ")");
+					var result = addedTokens.findIndex(addedToken =>
+						addedToken.key === parseInt(token.getKey(), 10) &&
+						addedToken.entity === sEntityPath);
+					if (result >= 0) {
+						this.getView().getModel().deleteCreatedEntry(addedTokens[result].context);
+						addedTokens.splice(result, 1);
+					} else {
+						this.getView().getModel().remove("/" + sEntityPath + "(GTMID_GTMID=" + parseInt(this.sObjectId, 10) + ",Value_ID=" + parseInt(
+							token.getKey(), 10) + ")", {
+							groupId: "deleteTokens"
+						});
+						oMultiInput.removeToken(token); // remove token  manually from multiInput as the delete operation is a batch deffered operation 
+					}
+
 				}.bind(this));
-				this.getModel("objectView").setProperty("/saveVisible", this.getView().getModel().hasPendingChanges());
+				// this.getModel("objectView").setProperty("/edit", this.getView().getModel().hasPendingChanges());
 				// sTokensText = "Removed tokens: ";
 			}
-		}
+		},
+		formatStatus: function (status) {
+			switch (status) {
+			case "Created":
+				// code block
+				return sap.ui.core.ValueState.Error;
+				break;
+			case "Work In Progress":
+				// code block
+				return sap.ui.core.ValueState.Warning;
+				break;
+			case "Completed":
+				return sap.ui.core.ValueState.Success;
+				// code block
+				break;
+			default:
+				// code block
+				return sap.ui.core.ValueState.None;
+			}
+		},
 
 	});
 

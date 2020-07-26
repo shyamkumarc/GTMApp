@@ -14,15 +14,14 @@
 				<EntitySet Name="Industries" EntityType="CatalogService.Industries"/>
 				<EntitySet Name="Industries_all" EntityType="CatalogService.Industries_all"/>
 				<EntitySet Name="PackageTypes_all" EntityType="CatalogService.PackageTypes_all"/>
-				<EntitySet Name="Packages" EntityType="CatalogService.Packages"
-				 sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+				<EntitySet Name="PackageView" EntityType="CatalogService.PackageView"/>
+				<EntitySet Name="Packages" EntityType="CatalogService.Packages"/>
 				<EntitySet Name="Phases" EntityType="CatalogService.Phases"/>
 				<EntitySet Name="Phases_all" EntityType="CatalogService.Phases_all"/>
 				<EntitySet Name="Practices_all" EntityType="CatalogService.Practices_all"/>
 				<EntitySet Name="SolProcesses" EntityType="CatalogService.SolProcesses"/>
 				<EntitySet Name="SolutionProcesses_all" EntityType="CatalogService.SolutionProcesses_all"/>
-				<EntitySet Name="Technologies" EntityType="CatalogService.Technologies"
-				 sap:creatable="true" sap:updatable="true" sap:deletable="true"/>
+				<EntitySet Name="Technologies" EntityType="CatalogService.Technologies"/>
 				<EntitySet Name="Technologies_all" EntityType="CatalogService.Technologies_all"/>
 				<EntitySet Name="Users_all" EntityType="CatalogService.Users_all"/>
 				<AssociationSet Name="Industries_GTMID" Association="CatalogService.Industries_GTMID">
@@ -105,6 +104,30 @@
 				</Key>
 				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
 				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="PackageView">
+				<Key>
+					<PropertyRef Name="GTMID"/>
+				</Key>
+				<Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="PRACTICE_ID" Type="Edm.Int32"/>
+				<Property Name="PACKAGETYPE_ID" Type="Edm.Int32"/>
+				<Property Name="PackageTitle" Type="Edm.String"/>
+				<Property Name="umbrellaTitle" Type="Edm.String"/>
+				<Property Name="GTMSTATUS_ID" Type="Edm.Int32"/>
+				<Property Name="GTMRESPONSIBLE_ID" Type="Edm.String"/>
+				<Property Name="Comments" Type="Edm.String"/>
+				<Property Name="Folderlink" Type="Edm.String"/>
+				<Property Name="technologyCodes" Type="Edm.Int32"/>
+				<Property Name="industryCodes" Type="Edm.Int32"/>
+				<Property Name="solProsCodes" Type="Edm.Int32"/>
+				<Property Name="phaseCodes" Type="Edm.Int32"/>
+				<Property Name="status" Type="Edm.String"/>
+				<Property Name="packageType" Type="Edm.String"/>
 			</EntityType>
 			<EntityType Name="Packages">
 				<Key>
@@ -344,6 +367,14 @@
 					</Dependent>
 				</ReferentialConstraint>
 			</Association>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.PackageView/createdBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.PackageView/modifiedBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
 			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Packages/createdBy">
 				<Annotation Term="Common.Label" String="User ID"/>
 				<Annotation Term="Core.Description" String="User's unique ID"/>

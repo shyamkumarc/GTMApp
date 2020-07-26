@@ -1,81 +1,98 @@
-<mvc:View
-	controllerName="com.sdc.gtmwl.GTM_UI_V2.controller.Worklist"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic">
-
-	<semantic:SemanticPage
-		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false">
-
-		<semantic:titleHeading>
-			<Title
-				text="{i18n>worklistTitle}"
-				level="H2"/>
-		</semantic:titleHeading>
-
-		<semantic:content>
-			<Table
-				id="table"
-				width="auto"
-				items="{
-					path: '/Packages',
-					sorter: {
-						path: 'umbrellaTitle',
-						descending: false
-					}
-				}"
-				noDataText="{worklistView>/tableNoDataText}"
-				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
-				growing="true"
-				growingScrollToLoad="true"
-				updateFinished=".onUpdateFinished">
-
-				<headerToolbar>
-					<OverflowToolbar>
-						<Title
-							id="tableHeader"
-							text="{worklistView>/worklistTableTitle}"
-							level="H3"/>
-						<ToolbarSpacer />
-						<SearchField
-							id="searchField"
-							tooltip="{i18n>worklistSearchTooltip}"
-							search=".onSearch">
-							<layoutData>
-								<OverflowToolbarLayoutData
-									maxWidth="200px"
-									priority="NeverOverflow"/>
-							</layoutData>
-						</SearchField>
-					</OverflowToolbar>
-				</headerToolbar>
-
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	controllerName="com.sdc.gtmwl.GTM_UI_V2.controller.Worklist" height="100%">
+	<VBox fitContainer="true">
+		<smartFilterBar:SmartFilterBar id="smartFilterBar" persistencyKey="UniqueAndStablePersistencyKey" considerSelectionVariants="true"
+			entitySet="PackageView" enableBasicSearch="true" basicSearchFieldName="umbrellaTitle" showClearButton="true">
+			<smartFilterBar:controlConfiguration>
+				<smartFilterBar:ControlConfiguration key="GTMID" groupId="Repository Header"   visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+				<smartFilterBar:ControlConfiguration key="PACKAGETYPE_ID" groupId="Repository Header"  visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+				<smartFilterBar:ControlConfiguration key="PRACTICE_ID" groupId="Repository Header"   visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+				<smartFilterBar:ControlConfiguration key="technologyCodes" groupId="tags" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+				<smartFilterBar:ControlConfiguration key="industryCodes" groupId="tags" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+				<smartFilterBar:ControlConfiguration key="solProsCodes" groupId="tags" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+				<smartFilterBar:ControlConfiguration key="phaseCodes" groupId="tags" visibleInAdvancedArea="true"></smartFilterBar:ControlConfiguration>
+			</smartFilterBar:controlConfiguration>
+			<!-- layout data used to make the table growing but the filter bar fixed -->
+			<smartFilterBar:layoutData>
+				<FlexItemData shrinkFactor="0"/>
+			</smartFilterBar:layoutData>
+		</smartFilterBar:SmartFilterBar>
+		<smartTable:SmartTable id="smartTable" entitySet="PackageView" smartFilterId="smartFilterBar" tableType="ResponsiveTable"
+			ignoredFields='createdAt,createdBy,modifiedAt,modifiedBy,PRACTICE_ID,PACKAGETYPE_ID,GTMSTATUS_ID,GTMRESPONSIBLE_ID, Comments,Folderlink,technologyCodes,industryCodes,solProsCodes,phaseCodes'
+			useExportToExcel="true" beforeExport="onBeforeExport" useVariantManagement="false" useTablePersonalisation="true" header="Line Items"
+			showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true" demandPopin="true"
+			class="sapUiResponsiveContentPadding">
+			<Table>
 				<columns>
-					<Column id="nameColumn">
-						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
+					<Column id="statusColumn" width="100px" hAlign="Begin">
+						<customData>
+							<core:CustomData key="p13nData"
+								value='\{"columnKey": "status", "maxLength": "5","columnIndex":"4", "leadingProperty": "status", "sortProperty": "status"}'/>
+						</customData>
+						<Text text="{i18n>statusColumn}"/>
 					</Column>
 				</columns>
-
 				<items>
-					<ColumnListItem
-						type="Navigation"
-						press=".onPress">
+					<ColumnListItem type="Navigation" press=".onPress">
 						<cells>
-							<ObjectIdentifier
-								title="{umbrellaTitle}"/>
+							<ObjectStatus text='{status}' state="{ path:'status' , formatter:'.formatStatus' }"/>
 						</cells>
 					</ColumnListItem>
 				</items>
 			</Table>
-		</semantic:content>
-
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
-		</semantic:sendEmailAction>
-
-
-	</semantic:SemanticPage>
-
+		</smartTable:SmartTable>
+	</VBox>
 </mvc:View>
+<!--<mvc:View controllerName="com.sdc.gtmwl.GTM_UI_V2.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"-->
+<!--	xmlns:semantic="sap.f.semantic">-->
+<!--	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">-->
+<!--		<semantic:titleHeading>-->
+<!--			<Title text="{i18n>worklistTitle}" level="H2"/>-->
+<!--		</semantic:titleHeading>-->
+<!--		<semantic:content>-->
+<!--			<Table id="table" width="auto" items="{ path: '/PackageView', sorter: { path: 'umbrellaTitle', descending: false } }"-->
+<!--				noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true"-->
+<!--				updateFinished=".onUpdateFinished">-->
+<!--				<headerToolbar>-->
+<!--					<OverflowToolbar>-->
+<!--						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}" level="H3"/>-->
+<!--						<ToolbarSpacer/>-->
+<!--						<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search=".onSearch">-->
+<!--							<layoutData>-->
+<!--								<OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>-->
+<!--							</layoutData>-->
+<!--						</SearchField>-->
+<!--					</OverflowToolbar>-->
+<!--				</headerToolbar>-->
+<!--				<columns>-->
+<!--					<Column id="nameColumn">-->
+<!--						<Text text="{i18n>tableNameColumnTitle}"/>-->
+<!--					</Column>-->
+<!--					<Column id="nameColumn2">-->
+<!--						<Text text="{i18n>typeColumn}"/>-->
+<!--					</Column>-->
+<!--					<Column id="nameColumn3">-->
+<!--						<Text text="{i18n>statusColumn}"/>-->
+<!--					</Column>-->
+<!--				</columns>-->
+<!--				<items>-->
+<!--					<ColumnListItem type="Navigation" press=".onPress">-->
+<!--						<cells>-->
+<!--							<ObjectIdentifier title="{umbrellaTitle}" text="{PackageTitle}"/>-->
+<!--						</cells>-->
+<!--							<cells>-->
+<!--							<Text text="{packageType}"/>-->
+<!--						</cells>-->
+<!--							<cells>-->
+<!--							<ObjectStatus text="{status}" state="{ path:'GTMSTATUS_ID' , formatter:'.formatStatus' }" />-->
+<!--						</cells>-->
+<!--					</ColumnListItem>-->
+<!--				</items>-->
+<!--			</Table>-->
+<!--		</semantic:content>-->
+<!--		<semantic:sendEmailAction>-->
+<!--			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>-->
+<!--		</semantic:sendEmailAction>-->
+<!--	</semantic:SemanticPage>-->
+<!--</mvc:View>-->
