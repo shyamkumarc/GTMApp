@@ -32,6 +32,18 @@
 		"sourceTemplate": {
 			"id": "sap.ui.ui5-template-plugin.1worklistmodule",
 			"version": "1.80.0"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"intent1": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "Worklist",
+					"action": "Display"
+				}
+			}
 		}
 	},
 	"sap.ui": {

@@ -17,9 +17,7 @@
 				"settings": {
 					"odataVersion": "2.0",
 					"localUri": "localService/catalog/metadata.xml",
-					"annotations": [
-						"annotation0"
-					]
+					"annotations": ["annotation0"]
 				}
 			},
 			"annotation0": {
@@ -33,6 +31,18 @@
 		"sourceTemplate": {
 			"id": "OVP.cardtemplate",
 			"version": "0.0.0"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"intent1": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "OVP",
+					"action": "Display"
+				}
+			}
 		}
 	},
 	"sap.ui": {
@@ -66,7 +76,8 @@
 			"catalog": {
 				"dataSource": "catalog",
 				"settings": {
-					"defaultCountMode": "Inline"
+					"defaultCountMode": "Inline",
+					"useBatch": true
 				}
 			}
 		},
@@ -80,8 +91,9 @@
 	},
 	"sap.ovp": {
 		"globalFilterModel": "catalog",
-		"globalFilterEntityType": "Packages",
-		"enableLiveFilter": true,
+		"globalFilterEntityType": "PackageView",
+		"containerLayout": "resizable",
+		"enableLiveFilter": false,
 		"considerAnalyticalParameters": false,
 		"cards": {
 			"card9": {
@@ -89,11 +101,62 @@
 				"template": "sap.ovp.cards.stack",
 				"settings": {
 					"title": "testcard",
-					"entitySet": "Packages",
+					"entitySet": "PackageView",
 					"subTitle": "Open orders to approve",
-					"objectStreamCardsSettings":{
+					"objectStreamCardsSettings": {
 						"annotationPath": "com.sap.vocabularies.UI.v1.Facets#stack"
 					}
+				}
+			},
+			"repositoriesByPractice": {
+				"model": "catalog",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "Practice  Split ",
+					"valueSelectionInfo": "value selection info",
+					"entitySet": "PackagesbyPractice",
+					"selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ColumnTime",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency"
+				}
+			},
+			"repositoriesByPracticeInd": {
+				"model": "catalog",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "Industry Split ",
+					"valueSelectionInfo": "value selection info",
+					"entitySet": "PackagesbyPracticeInd",
+					"selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Eval_by_Currency",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#DonutChart",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Eval_by_Currency",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#Eval_by_Currency-Generic",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#Eval_by_Currency"
+				}
+			},
+			"repositoriesByPracticeTech": {
+				"model": "catalog",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "Technology Split",
+					"entitySet": "PackagesbyPracticeTech",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#DOnutChat"
+				}
+			},
+			"card04": {
+				"model": "catalog",
+				"template": "sap.ovp.cards.list",
+				"settings": {
+					"title": "{{card04_title}}",
+					"entitySet": "PackageView",
+					"listType": "extended",
+					"listFlavor": "standard",
+					"sortBy": "modifiedAt",
+					"sortOrder": "descending",
+					"annotationPath": "com.sap.vocabularies.UI.v1.LineItem#List",
+					"addODataSelect": false
 				}
 			}
 		}

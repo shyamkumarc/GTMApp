@@ -1,0 +1,16 @@
+VIEW  GTM_DATAMODEL_PACKAGESBYPRACTICETECH as SELECT 
+techmaster.ID as technologyCodes,
+techmaster.TEXT as technologyTexts,
+practice.ID as PRACTICE_ID,
+practice.TEXT as PRACTICE_TEXT,
+count(tech.GTMID_GTMID) as packageCount
+FROM "GTM_DATAMODEL_MDTECHNOLOGIES" as techmaster
+left outer join  "GTM_DATAMODEL_TXTECHNOLOGIES" as tech
+on tech.VALUE_ID = techmaster.ID
+left outer join  "GTM_DATAMODEL_TXPACKAGES" as packages
+on packages.GTMID = tech.GTMID_GTMID and packages.DELETIONINDICATOR <> 'X'
+left outer join  "GTM_DATAMODEL_MCPRACTICES" as practice
+on packages.GTMID = practice.ID
+
+group by practice.ID ,practice.TEXT, techmaster.ID, techmaster.TEXT
+order by techmaster.ID,practice.ID

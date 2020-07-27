@@ -3,8 +3,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"../model/formatter",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/base/util/UriParameters"
+], function (BaseController, JSONModel, formatter, Filter, FilterOperator, UriParameters) {
 	"use strict";
 
 	return BaseController.extend("com.sdc.gtmwl.GTM_UI_V2.controller.Worklist", {
@@ -19,6 +20,7 @@ sap.ui.define([
 		 * Called when the worklist controller is instantiated.
 		 * @public
 		 */
+
 		onInit: function () {
 			var oViewModel,
 				iOriginalBusyDelay,
@@ -41,6 +43,17 @@ sap.ui.define([
 				tableBusyDelay: 0
 			});
 			this.setModel(oViewModel, "worklistView");
+			this.getRouter().getRoute("worklist").attachPatternMatched(function (oEvent) {
+				debugger;
+				//if passed from OVP - redirect the navigation to detail page
+				var GTMID_OVP = UriParameters.fromQuery(window.location.search).get("GTMID");
+				if (GTMID_OVP) {
+					this.getRouter().navTo("object", {
+						objectId: GTMID_OVP
+					});
+				} else
+					this.byId('smartTable').getModel().refresh();
+			}, this)
 
 			// Make sure, busy indication is showing immediately so there is no
 			// break after the busy indication for loading the view's meta data is
@@ -141,6 +154,11 @@ sap.ui.define([
 		_showObject: function (oItem) {
 			this.getRouter().navTo("object", {
 				objectId: oItem.getBindingContext().getProperty("GTMID")
+			});
+		},
+		onAdd: function (oEvent) {
+			this.getRouter().navTo("object", {
+				objectId: "Add"
 			});
 		},
 

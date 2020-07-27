@@ -14,7 +14,11 @@
 				<EntitySet Name="Industries" EntityType="CatalogService.Industries"/>
 				<EntitySet Name="Industries_all" EntityType="CatalogService.Industries_all"/>
 				<EntitySet Name="PackageTypes_all" EntityType="CatalogService.PackageTypes_all"/>
+				<EntitySet Name="PackageView" EntityType="CatalogService.PackageView"/>
 				<EntitySet Name="Packages" EntityType="CatalogService.Packages"/>
+				<EntitySet Name="PackagesbyPractice" EntityType="CatalogService.PackagesbyPractice"/>
+				<EntitySet Name="PackagesbyPracticeInd" EntityType="CatalogService.PackagesbyPracticeInd"/>
+				<EntitySet Name="PackagesbyPracticeTech" EntityType="CatalogService.PackagesbyPracticeTech"/>
 				<EntitySet Name="Phases" EntityType="CatalogService.Phases"/>
 				<EntitySet Name="Phases_all" EntityType="CatalogService.Phases_all"/>
 				<EntitySet Name="Practices_all" EntityType="CatalogService.Practices_all"/>
@@ -86,6 +90,7 @@
 				</Key>
 				<NavigationProperty Name="GTMID" Relationship="CatalogService.Industries_GTMID" FromRole="Industries" ToRole="Packages"/>
 				<NavigationProperty Name="Value" Relationship="CatalogService.Industries_Value" FromRole="Industries" ToRole="Industries_all"/>
+				<Property Name="text" Type="Edm.String"/>
 				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
 				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
 			</EntityType>
@@ -102,6 +107,30 @@
 				</Key>
 				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
 				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="PackageView">
+				<Key>
+					<PropertyRef Name="GTMID"/>
+				</Key>
+				<Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="PRACTICE_ID" Type="Edm.Int32"/>
+				<Property Name="PACKAGETYPE_ID" Type="Edm.Int32"/>
+				<Property Name="PackageTitle" Type="Edm.String"/>
+				<Property Name="umbrellaTitle" Type="Edm.String"/>
+				<Property Name="GTMSTATUS_ID" Type="Edm.Int32"/>
+				<Property Name="GTMRESPONSIBLE_ID" Type="Edm.String"/>
+				<Property Name="Comments" Type="Edm.String"/>
+				<Property Name="Folderlink" Type="Edm.String"/>
+				<Property Name="technologyCodes" Type="Edm.Int32"/>
+				<Property Name="industryCodes" Type="Edm.Int32"/>
+				<Property Name="solProsCodes" Type="Edm.Int32"/>
+				<Property Name="phaseCodes" Type="Edm.Int32"/>
+				<Property Name="status" Type="Edm.String"/>
+				<Property Name="packageType" Type="Edm.String"/>
 			</EntityType>
 			<EntityType Name="Packages">
 				<Key>
@@ -124,10 +153,41 @@
 				<NavigationProperty Name="Phases" Relationship="CatalogService.Phases_GTMID" FromRole="Packages" ToRole="Phases"/>
 				<Property Name="Comments" Type="Edm.String"/>
 				<Property Name="Folderlink" Type="Edm.String"/>
+				<Property Name="deletionIndicator" Type="Edm.String"/>
 				<Property Name="Practice_ID" Type="Edm.Int32"/>
 				<Property Name="PackageType_ID" Type="Edm.Int32"/>
 				<Property Name="GTMStatus_ID" Type="Edm.Int32"/>
 				<Property Name="GTMResponsible_ID" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="PackagesbyPractice">
+				<Key>
+					<PropertyRef Name="PRACTICE_ID"/>
+				</Key>
+				<Property Name="PRACTICE_ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="PRACTICE_TEXT" Type="Edm.String"/>
+				<Property Name="packageCount" Type="Edm.Int32"/>
+			</EntityType>
+			<EntityType Name="PackagesbyPracticeInd">
+				<Key>
+					<PropertyRef Name="industryCodes"/>
+					<PropertyRef Name="PRACTICE_ID"/>
+				</Key>
+				<Property Name="industryCodes" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="industryTexts" Type="Edm.String"/>
+				<Property Name="PRACTICE_ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="PRACTICE_TEXT" Type="Edm.String"/>
+				<Property Name="packageCount" Type="Edm.Int32"/>
+			</EntityType>
+			<EntityType Name="PackagesbyPracticeTech">
+				<Key>
+					<PropertyRef Name="technologyCodes"/>
+					<PropertyRef Name="PRACTICE_ID"/>
+				</Key>
+				<Property Name="technologyCodes" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="technologyTexts" Type="Edm.String"/>
+				<Property Name="PRACTICE_ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="PRACTICE_TEXT" Type="Edm.String"/>
+				<Property Name="packageCount" Type="Edm.Int32"/>
 			</EntityType>
 			<EntityType Name="Phases">
 				<Key>
@@ -136,6 +196,7 @@
 				</Key>
 				<NavigationProperty Name="GTMID" Relationship="CatalogService.Phases_GTMID" FromRole="Phases" ToRole="Packages"/>
 				<NavigationProperty Name="Value" Relationship="CatalogService.Phases_Value" FromRole="Phases" ToRole="Phases_all"/>
+				<Property Name="text" Type="Edm.String"/>
 				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
 				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
 			</EntityType>
@@ -160,6 +221,7 @@
 				</Key>
 				<NavigationProperty Name="GTMID" Relationship="CatalogService.SolProcesses_GTMID" FromRole="SolProcesses" ToRole="Packages"/>
 				<NavigationProperty Name="Value" Relationship="CatalogService.SolProcesses_Value" FromRole="SolProcesses" ToRole="SolutionProcesses_all"/>
+				<Property Name="text" Type="Edm.String"/>
 				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
 				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
 			</EntityType>
@@ -177,6 +239,7 @@
 				</Key>
 				<NavigationProperty Name="GTMID" Relationship="CatalogService.Technologies_GTMID" FromRole="Technologies" ToRole="Packages"/>
 				<NavigationProperty Name="Value" Relationship="CatalogService.Technologies_Value" FromRole="Technologies" ToRole="Technologies_all"/>
+				<Property Name="text" Type="Edm.String"/>
 				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
 				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
 			</EntityType>
@@ -338,6 +401,14 @@
 					</Dependent>
 				</ReferentialConstraint>
 			</Association>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.PackageView/createdBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.PackageView/modifiedBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
 			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Packages/createdBy">
 				<Annotation Term="Common.Label" String="User ID"/>
 				<Annotation Term="Core.Description" String="User's unique ID"/>

@@ -1,0 +1,9 @@
+VIEW  GTM_DATAMODEL_PACKAGESBYPRACTICE as  
+SELECT practice.ID as PRACTICE_ID,
+practice.TEXT as PRACTICE_TEXT,
+count(packages.GTMID) as packageCount
+FROM "GTM_DATAMODEL_MCPRACTICES" as practice
+left outer join "GTM_DATAMODEL_TXPACKAGES" as packages
+on packages.PRACTICE_ID = practice.ID and packages.DELETIONINDICATOR <> 'X'
+group by practice.ID ,practice.TEXT
+order by practice.ID

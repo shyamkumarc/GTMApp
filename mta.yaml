@@ -20,6 +20,7 @@ modules:
           name: srv_api
           url: '~{url}'
       - name: GTM_CAP-uaa
+      - name: portal_resources_GTM_CAP
   - name: GTM_CAP_ui_deployer
     type: com.sap.html5.application-content
     path: GTM_CAP_ui_deployer
@@ -76,6 +77,18 @@ modules:
         - npm run build
       supported-platforms: []
       build-result: dist
+  - name: com.sdc.GTMFLP
+    type: com.sap.portal.content
+    path: com.sdc.GTMFLP
+    parameters:
+      stack: cflinuxfs3
+      memory: 128M
+      buildpack: 'https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.6.39/nodejs-buildpack-cflinuxfs3-v1.6.39.zip'
+    requires:
+      - name: portal_resources_GTM_CAP
+      - name: GTM_CAP-uaa
+      - name: GTM_CAP_html5_repo_host
+      - name: GTM_CAP_ui_deployer
 resources:
   - name: GTM_CAP_html5_repo_runtime
     parameters:
@@ -97,3 +110,8 @@ resources:
       path: ./xs-security.json
       service-plan: application
       service: xsuaa
+  - name: portal_resources_GTM_CAP
+    parameters:
+      service-plan: standard
+      service: portal
+    type: org.cloudfoundry.managed-service

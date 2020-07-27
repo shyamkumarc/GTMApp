@@ -5,9 +5,33 @@
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
 		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
 	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GTM_CAP.ovp.annotation0.CatalogService">
-			<Annotations Target="Metadata.Packages">
+			<Annotations Target="Metadata.PackageView">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>PRACTICE_ID</PropertyPath>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.LineItem" Qualifier="List">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PackageTitle"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;TITLE}"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="umbrellaTitle"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;UMBRELLA_TITLE}"/>
+						</Record>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="Worklist"/>
+							<PropertyValue Property="Action" String="Display"/>
+						</Record>
+					</Collection>
+				</Annotation>
 				<Annotation Term="UI.Facets" Qualifier="stack">
 					<Collection>
 						<Record Type="UI.ReferenceFacet">
@@ -26,8 +50,16 @@
 									<PropertyValue Property="Label" String="GTM iD:"/>
 								</Record>
 								<Record Type="UI.DataField">
-									<PropertyValue Property="Value" Path="Comments"/>
-									<PropertyValue Property="Label" String="Cooments:"/>
+									<PropertyValue Property="Value" Path="umbrellaTitle"/>
+									<PropertyValue Property="Label" String="{@i18n&gt;UMBRELLA_TITLE}"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="status"/>
+									<PropertyValue Property="Label" String="{@i18n&gt;STATUS}"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="packageType"/>
+									<PropertyValue Property="Label" String="{@i18n&gt;PACKAGE_TYPE}"/>
 								</Record>
 							</Collection>
 						</PropertyValue>
@@ -35,13 +67,127 @@
 				</Annotation>
 				<Annotation Term="UI.HeaderInfo">
 					<Record Type="UI.HeaderInfoType">
-						<PropertyValue Property="TypeName" String="test"/>
+						<PropertyValue Property="TypeName" String="GTM ID:"/>
 						<PropertyValue Property="TypeNamePlural" String="test2"/>
-						<PropertyValue Property="Title">
-							<Record Type="UI.DataField">
-								<PropertyValue Property="Value" Path="PackageTitle"/>
-								<PropertyValue Property="Label" String="Package Title:"/>
-							</Record>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPractice">
+				<Annotation Term="UI.Chart" Qualifier="ColumnTime">
+					<Record Type="UI.ChartDefinitionType">
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="packageCount"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="PRACTICE_TEXT"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPractice/PRACTICE_TEXT">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPractice/packageCount">
+				<Annotation Term="Common.Label" String="{@i18n&gt;card00_title}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeInd">
+				<Annotation Term="UI.Chart" Qualifier="DonutChart">
+					<Record Type="UI.ChartDefinitionType">
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="packageCount"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="industryTexts"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="PRACTICE_TEXT"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Series"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeInd/industryTexts">
+				<Annotation Term="Common.Label" String="{@i18n&gt;INDUSTRY}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeInd/packageCount">
+				<Annotation Term="Common.Label" String="{@i18n&gt;card00_title}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeTech">
+				<Annotation Term="UI.Chart" Qualifier="DOnutChat">
+					<Record Type="UI.ChartDefinitionType">
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked"/>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="packageCount"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="technologyTexts"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+								</Record>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="PRACTICE_TEXT"/>
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Series"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeTech/technologyTexts">
+				<Annotation Term="Common.Label" String="{@i18n&gt;TECHNOLOGY}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeTech/packageCount">
+				<Annotation Term="Common.Label" String="{@i18n&gt;card00_title}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeInd/PRACTICE_TEXT">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackagesbyPracticeTech/PRACTICE_TEXT">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/PRACTICE_ID">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Practices_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="PRACTICE_ID"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
 						</PropertyValue>
 					</Record>
 				</Annotation>

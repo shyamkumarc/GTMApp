@@ -31,6 +31,7 @@
 					<m:Button text="Save" visible='{=${objectView>/edit}}' press="onSave"/>
 					<m:Button text="Cancel" visible='{=${objectView>/edit}}' press="onCancel"/>
 					<m:Button text="Edit" enabled='{=!${objectView>/edit}}' press="onEdit"/>
+					<m:Button text="Delete" enabled='{=!${objectView>/edit}}' press="onDelete"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
@@ -151,7 +152,7 @@
 					<ObjectPageSubSection id="goalsSectionSS3">
 						<blocks>
 							<layout:VerticalLayout class="sapUiContentPadding" width="100%">
-								<richtext:RichTextEditor width="100%" height="600px" value="{Comments}" customToolbar="true" showGroupFont="true" showGroupLink="true"
+								<richtext:RichTextEditor id="rtE" width="100%" height="600px" value="{Comments}" customToolbar="true" showGroupFont="true" showGroupLink="true"
 									showGroupInsert="true" ready="onEditotReady"/>
 								<!--<m:FormattedText htmlText="{Comments}"/>-->
 							</layout:VerticalLayout>
@@ -164,7 +165,7 @@
 					<ObjectPageSubSection id="goalsSectionSS3D">
 						<blocks>
 							<!--<layout:VerticalLayout class="sapUiContentPadding" width="100%">-->
-								<m:FormattedText htmlText="{Comments}"/>
+								<m:FormattedText id="rtD" htmlText="{Comments}"/>
 							<!--</layout:VerticalLayout>-->
 						</blocks>
 					</ObjectPageSubSection>

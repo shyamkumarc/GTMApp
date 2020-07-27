@@ -195,19 +195,26 @@ sap.ui.define([
 			this.sObjectId = sObjectId;
 			if (sObjectId == "Add") {
 
-				this.getView().getModel().read('PackageView', {
-						urlParameters: {
-							"$orderby": "GTMID",
-							"$select": "GTMID",
-							"$top": 1
-						},
-						success: function (oData, response) {
-							var oEntry = this.getView().getModel().createEntry("/Packages",{properties:{GTMID:oData.d.results[0].GTMID + 1 }});
-							this.getView().setBindingContext(oEntry);
-						}.bind(this),
-						error: function (oError) {}
-					);
-				}
+				this.getView().getModel().read('/PackageView', {
+					urlParameters: {
+						"$orderby": "GTMID desc",
+						"$select": "GTMID",
+						"$top": 1
+					},
+					success: function (oData, response) {
+						var oEntry = this.getView().getModel().createEntry("/Packages", {
+							properties: {
+								GTMID: oData.results[0].GTMID + 1
+							}
+						});
+						this.getView().setBindingContext(oEntry);
+						this.getModel("objectView").setProperty("/edit", true);
+						this.sObjectId = parseInt(oData.results[0].GTMID + 1);
+						// this.byId("rtD").destroy();
+					}.bind(this),
+					error: function (oError) {}
+				});
+
 			} else {
 				this.getModel().metadataLoaded().then(function () {
 					var sObjectPath = this.getModel().createKey("Packages", {
@@ -266,11 +273,28 @@ sap.ui.define([
 				oViewModel = this.getModel("objectView"),
 				oElementBinding = oView.getElementBinding();
 
+			this.getView().getModel().read(oView.getElementBinding().getPath(), {
+				urlParameters: {
+					"$select": "GTMID"
+				},
+				success: function (oData, response) {
+				 if(!oData.results[0].GTMID) 
+				 	this.getRouter().getTargets().display("objectNotFound");
+							// return;
+				}.bind(this),
+				error: function (oError) {
+					// No data for the binding
+					if (!oElementBinding.getBoundContext()) {
+						this.getRouter().getTargets().display("objectNotFound");
+						// return;
+					}
+				}.bind(this)
+			});
 			// No data for the binding
-			if (!oElementBinding.getBoundContext()) {
-				this.getRouter().getTargets().display("objectNotFound");
-				return;
-			}
+			// if (!oElementBinding.getBoundContext()) {
+			// 	this.getRouter().getTargets().display("objectNotFound");
+			// 	return;
+			// }
 
 			var oResourceBundle = this.getResourceBundle(),
 				oObject = oView.getBindingContext().getObject(),
@@ -482,6 +506,61 @@ sap.ui.define([
 				return sap.ui.core.ValueState.None;
 			}
 		},
+		onDelete: function () {
+			//open dialog box for confirmation
+			var oDialog = new Dialog({
+				title: 'Confirm',
+				type: 'Message',
+				content: new Text({
+					text: 'Are you sure you want to delete this repository Item?'
+				}),
+				beginButton: new Button({ //Save button
+					type: "Emphasized",
+					text: 'Yes',
+					press: function () { //Save button press
+						var busyDialog = new sap.m.BusyDialog();
+						busyDialog.open();
+						var deletePath = this.getView().getBindingContext().getPath()+"/deletionIndicator";
+						this.getModel().setProperty(deletePath,'X');
+						this.getModel().submitChanges({ // submit for backend update
+							success: function (data, response) { //Save button - save successful
+								oDialog.close();
+								busyDialog.close();
+								MessageToast.show("Record deleted successfully!");
+								var sPreviousHash = History.getInstance().getPreviousHash();
+
+								if (sPreviousHash !== undefined) {
+									history.go(-1);
+								} else {
+									this.getRouter().navTo("worklist", {}, true);
+								}
+
+							}.bind(this),
+							error: function (oError) { //Save button - save failed 
+								oDialog.close();
+								busyDialog.close();
+								MessageToast.show('Failed to delete record');
+								this.getModel("objectView").setProperty("/edit", false);
+							}.bind(this)
+						}); // submit for backend update
+
+					}.bind(this)
+				}),
+				endButton: new Button({
+					text: 'Cancel',
+					press: function () {
+						// this.getModel().resetChanges(null, true);
+						// this.getModel("objectView").setProperty("/edit", false);
+						oDialog.close();
+					}.bind(this)
+				}),
+				afterClose: function () {
+					oDialog.destroy();
+				}
+			});
+
+			oDialog.open();
+		}
 
 	});
 

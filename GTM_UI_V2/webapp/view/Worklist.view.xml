@@ -23,6 +23,12 @@
 			useExportToExcel="true" beforeExport="onBeforeExport" useVariantManagement="false" useTablePersonalisation="true" header="Line Items"
 			showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true" demandPopin="true"
 			class="sapUiResponsiveContentPadding">
+		        <smartTable:customToolbar> 
+                <OverflowToolbar design="Transparent"> 
+                        <ToolbarSpacer/> 
+                        <Button text="Add" press="onAdd"/> 
+               </OverflowToolbar> 
+       </smartTable:customToolbar>
 			<Table>
 				<columns>
 					<Column id="statusColumn" width="100px" hAlign="Begin">

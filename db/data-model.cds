@@ -24,6 +24,30 @@ phaseCodes: Integer;
 status: String;
 packageType : String
 }
+
+@cds.persistence.exists
+entity PackagesbyPractice{
+PRACTICE_ID : Integer;
+PRACTICE_TEXT:String;
+packageCount: Integer;
+}
+
+@cds.persistence.exists
+entity PackagesbyPracticeTech {
+technologyCodes: Integer;
+technologyTexts: String;
+PRACTICE_ID: Integer;
+PRACTICE_TEXT: String;
+packageCount: Integer;
+}
+@cds.persistence.exists
+entity PackagesbyPracticeInd {
+industryCodes: Integer;
+industryTexts: String;
+PRACTICE_ID: Integer;
+PRACTICE_TEXT: String;
+packageCount: Integer;
+}
   
   
 entity TXPackages: managed  {
@@ -44,6 +68,7 @@ Industries: association to many TXIndustries on Industries.GTMID = $self;
 Phases: association to many TXPhases on Phases.GTMID = $self;
 Comments : String;
 Folderlink : String;
+deletionIndicator:String ;
 }
 entity TXTechnologies {
 key GTMID : association to TXPackages;
