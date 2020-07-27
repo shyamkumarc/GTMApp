@@ -128,8 +128,9 @@ sap.ui.define([
 				}
 				this._applySearch(aTableSearchState);
 			}
-
+      
 		},
+		
 
 		/**
 		 * Event handler for refresh event. Keeps filter, sort

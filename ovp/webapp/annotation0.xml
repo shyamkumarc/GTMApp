@@ -11,6 +11,46 @@
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GTM_CAP.ovp.annotation0.CatalogService">
 			<Annotations Target="Metadata.PackageView">
+				<Annotation Term="UI.Identification" Qualifier="header">
+					<Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="Worklist"/>
+							<PropertyValue Property="Action" String="Display"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.Identification" Qualifier="card">
+					<Collection>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="Worklist"/>
+							<PropertyValue Property="Action" String="Display"/>
+						</Record>
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Action" Path="status"/>
+						</Record>
+						<Record Type="UI.DataFieldForIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="Worklist"/>
+							<PropertyValue Property="Action" String="Display"/>
+							<PropertyValue Property="Label" String="View"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="group2">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="packageType"/>
+									<PropertyValue Property="Label" String="{@i18n&gt;PACKAGE_TYPE}"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="status"/>
+									<PropertyValue Property="Label" String="{@i18n&gt;STATUS}"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
 				<Annotation Term="UI.SelectionFields">
 					<Collection>
 						<PropertyPath>PRACTICE_ID</PropertyPath>
@@ -39,6 +79,11 @@
 							<PropertyValue Property="Label" String="Note"/>
 							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#group1"/>
 						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#group2"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;NOTE_2}"/>
+							<Annotation Term="UI.IsSummary" Bool="true"/>
+						</Record>
 					</Collection>
 				</Annotation>
 				<Annotation Term="UI.FieldGroup" Qualifier="group1">
@@ -46,20 +91,12 @@
 						<PropertyValue Property="Data">
 							<Collection>
 								<Record Type="UI.DataField">
-									<PropertyValue Property="Value" Path="GTMID"/>
-									<PropertyValue Property="Label" String="GTM iD:"/>
-								</Record>
-								<Record Type="UI.DataField">
 									<PropertyValue Property="Value" Path="umbrellaTitle"/>
 									<PropertyValue Property="Label" String="{@i18n&gt;UMBRELLA_TITLE}"/>
 								</Record>
 								<Record Type="UI.DataField">
-									<PropertyValue Property="Value" Path="status"/>
-									<PropertyValue Property="Label" String="{@i18n&gt;STATUS}"/>
-								</Record>
-								<Record Type="UI.DataField">
-									<PropertyValue Property="Value" Path="packageType"/>
-									<PropertyValue Property="Label" String="{@i18n&gt;PACKAGE_TYPE}"/>
+									<PropertyValue Property="Value" Path="PackageTitle"/>
+									<PropertyValue Property="Label" String="{@i18n&gt;REPOSITORY_ITEM_TITLE}"/>
 								</Record>
 							</Collection>
 						</PropertyValue>
@@ -67,8 +104,13 @@
 				</Annotation>
 				<Annotation Term="UI.HeaderInfo">
 					<Record Type="UI.HeaderInfoType">
-						<PropertyValue Property="TypeName" String="GTM ID:"/>
-						<PropertyValue Property="TypeNamePlural" String="test2"/>
+						<PropertyValue Property="TypeName" String="Item"/>
+						<PropertyValue Property="TypeNamePlural" String="Info"/>
+						<PropertyValue Property="Title">
+							<Record Type="UI.DataField">
+								<PropertyValue Property="Value" Path="GTMID"/>
+							</Record>
+						</PropertyValue>
 					</Record>
 				</Annotation>
 			</Annotations>

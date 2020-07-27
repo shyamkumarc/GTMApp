@@ -38,4 +38,4 @@ FROM
 	LEFT OUTER JOIN
 	"GTM_DATAMODEL_MCGTMSTATUSES" AS "status"
 	ON "status"."ID" = "packages"."GTMSTATUS_ID"
-	where "packages"."DELETIONINDICATOR" <> 'X';
+	where "packages"."DELETIONINDICATOR" IS NULL ;

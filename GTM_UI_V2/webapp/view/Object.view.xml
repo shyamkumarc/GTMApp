@@ -30,8 +30,8 @@
 					<!--<m:OverflowToolbarButton icon="sap-icon://show" text="show state" tooltip="show"/>-->
 					<m:Button text="Save" visible='{=${objectView>/edit}}' press="onSave"/>
 					<m:Button text="Cancel" visible='{=${objectView>/edit}}' press="onCancel"/>
-					<m:Button text="Edit" enabled='{=!${objectView>/edit}}' press="onEdit"/>
-					<m:Button text="Delete" enabled='{=!${objectView>/edit}}' press="onDelete"/>
+					<m:Button text="Edit" visible='{=!${objectView>/edit}}' press="onEdit"/>
+					<m:Button text="Delete" visible='{=!${objectView>/edit}}' press="onDelete"/>
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
@@ -109,24 +109,24 @@
 								<f:content>
 									<!--<core:Title text="Package"/>-->
 									<m:Label text="Status" labelFor="CBStatus"/>
-									<m:ComboBox class="sapUiSmallMarginBottom" id="CBStatus" items="{ path: '/GTMStatuses_all', sorter: { path: 'Text' }, suspended: false }"
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBStatus" required="true" selectionChange="onLiveChange" items="{ path: '/GTMStatuses_all', sorter: { path: 'Text' }, suspended: false }"
 										selectedKey="{path: 'GTMStatus_ID' ,  type: 'sap.ui.model.odata.type.Int32'}">
 										<core:ListItem key="{ID}" text="{Text}"/>
 									</m:ComboBox>
 									<m:Label text="Package Type" labelFor="CBPackageType"/>
-									<m:ComboBox class="sapUiSmallMarginBottom" id="CBPackageType"
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBPackageType" required="true" selectionChange="onLiveChange" 
 										items="{ path: '/PackageTypes_all', sorter: { path: 'Text' }, suspended: false }" 
 										selectedKey="{path: 'PackageType_ID' ,  type: 'sap.ui.model.odata.type.Int32'}">
 										<core:ListItem key="{ID}" text="{Text}"/>
 									</m:ComboBox>
 									<!--<core:Title text="Title"/>-->
 									<m:Label text="Title" labelFor="title"/>
-									<m:Input id="title" type="Text" value="{PackageTitle}" class="sapUiSmallMarginBottom" placeholder="Enter Title..."/>
+									<m:Input id="title" type="Text" value="{PackageTitle}"  required="true" submit="onLiveChange" class="sapUiSmallMarginBottom" placeholder="Enter Title..."/>
 									<m:Label text="Umbrella title" labelFor="UmbrellaTitle"/>
-									<m:Input id="UmbrellaTitle" type="Text" value="{umbrellaTitle}" class="sapUiSmallMarginBottom" placeholder="Enter Umbrella title ..."/>
+									<m:Input id="UmbrellaTitle" type="Text" value="{umbrellaTitle}" required="true" submit="onLiveChange" class="sapUiSmallMarginBottom" placeholder="Enter Umbrella title ..."/>
 									<!--<core:Title text="Team"/>-->
 									<m:Label text="Practice" labelFor="CBPractice"/>
-									<m:ComboBox class="sapUiSmallMarginBottom" id="CBPractice" items="{ path: '/Practices_all', sorter: { path: 'Text' }, suspended: false }"
+									<m:ComboBox class="sapUiSmallMarginBottom" id="CBPractice"  required="true" selectionChange="onLiveChange"  items="{ path: '/Practices_all', sorter: { path: 'Text' }, suspended: false }"
 										selectedKey="{path: 'Practice_ID' ,  type: 'sap.ui.model.odata.type.Int32'}">
 										<core:ListItem key="{ID}" text="{Text}"/>
 									</m:ComboBox>

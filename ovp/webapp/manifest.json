@@ -100,12 +100,13 @@
 				"model": "catalog",
 				"template": "sap.ovp.cards.stack",
 				"settings": {
-					"title": "testcard",
+					"title": "Preview",
 					"entitySet": "PackageView",
-					"subTitle": "Open orders to approve",
+					"subTitle": "Quick view Repo. Items",
 					"objectStreamCardsSettings": {
 						"annotationPath": "com.sap.vocabularies.UI.v1.Facets#stack"
-					}
+					},
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#header,com.sap.vocabularies.UI.v1.Identification#card"
 				}
 			},
 			"repositoriesByPractice": {

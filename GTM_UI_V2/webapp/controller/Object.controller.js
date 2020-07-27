@@ -63,6 +63,20 @@ sap.ui.define([
 		 * @public
 		 */
 		onSave: function (oEvent) {
+			var error = false;
+			if (!this.byId('CBPackageType').getValue()) { this.byId('CBPackageType').setValueState("Error"); error = true; };
+			if (!this.byId('CBPractice').getValue()) {  this.byId('CBPractice').setValueState("Error"); error = true; };
+			if (!this.byId('CBStatus').getValue())  { this.byId('CBStatus').setValueState("Error"); error = true; };
+			if (!this.byId('title').getValue())  { this.byId('title').setValueState("Error"); error = true; };
+			if (!this.byId('UmbrellaTitle').getValue()) {  this.byId('UmbrellaTitle').setValueState("Error"); error = true; };
+			// this.byId('CBPractice').getSelectedKey() 
+			// this.byId('CBPractice').getSelectedKey()
+			
+			// this.byId('title').getValue() 
+			// this.byId('UmbrellaTitle').getValue()
+			
+			if (!error){
+			
 			var busyDialog = new sap.m.BusyDialog();
 			busyDialog.open();
 			this.getModel().submitChanges({ // submit for backend update
@@ -96,6 +110,11 @@ sap.ui.define([
 					this.getModel("objectView").setProperty("/edit", false);
 				}.bind(this)
 			}); // submit for backend update
+			}
+			else
+			{
+				sap.m.MessageBox.error('Please fill all mandatory Fields');
+			}
 		},
 		onEdit: function (oEvent) {
 			this.getView().getModel("objectView").setProperty("/edit", true);
@@ -150,11 +169,17 @@ sap.ui.define([
 						}.bind(this)
 					}),
 					endButton: new Button({
-						text: 'Cancel',
+						text: 'Discard',
 						press: function () {
 							this.getModel().resetChanges(null, true);
 							this.getModel("objectView").setProperty("/edit", false);
 							oDialog.close();
+							var sPreviousHash = History.getInstance().getPreviousHash();
+							if (sPreviousHash !== undefined) {
+								history.go(-1);
+							} else {
+								this.getRouter().navTo("worklist", {}, true);
+							}
 						}.bind(this)
 					}),
 					afterClose: function () {
@@ -194,8 +219,8 @@ sap.ui.define([
 			var sObjectId = oEvent.getParameter("arguments").objectId;
 			this.sObjectId = sObjectId;
 			if (sObjectId == "Add") {
-
-				this.getView().getModel().read('/PackageView', {
+				this.getView().unbindElement();
+				this.getView().getModel().read('/Packages', {
 					urlParameters: {
 						"$orderby": "GTMID desc",
 						"$select": "GTMID",
@@ -204,7 +229,8 @@ sap.ui.define([
 					success: function (oData, response) {
 						var oEntry = this.getView().getModel().createEntry("/Packages", {
 							properties: {
-								GTMID: oData.results[0].GTMID + 1
+								GTMID: oData.results[0].GTMID + 1,
+								GTMStatus_ID :1
 							}
 						});
 						this.getView().setBindingContext(oEntry);
@@ -278,9 +304,9 @@ sap.ui.define([
 					"$select": "GTMID"
 				},
 				success: function (oData, response) {
-				 if(!oData.results[0].GTMID) 
-				 	this.getRouter().getTargets().display("objectNotFound");
-							// return;
+					if (!oData.results[0].GTMID)
+						this.getRouter().getTargets().display("objectNotFound");
+					// return;
 				}.bind(this),
 				error: function (oError) {
 					// No data for the binding
@@ -520,8 +546,8 @@ sap.ui.define([
 					press: function () { //Save button press
 						var busyDialog = new sap.m.BusyDialog();
 						busyDialog.open();
-						var deletePath = this.getView().getBindingContext().getPath()+"/deletionIndicator";
-						this.getModel().setProperty(deletePath,'X');
+						var deletePath = this.getView().getBindingContext().getPath() + "/deletionIndicator";
+						this.getModel().setProperty(deletePath, 'X');
 						this.getModel().submitChanges({ // submit for backend update
 							success: function (data, response) { //Save button - save successful
 								oDialog.close();
@@ -560,6 +586,11 @@ sap.ui.define([
 			});
 
 			oDialog.open();
+		},
+		onLiveChange:function(oEvent){
+			var current = oEvent.getSource().getValueState();
+			if (current == sap.ui.core.ValueState.Error)
+			oEvent.getSource().setValueState(sap.ui.core.ValueState.Success);
 		}
 
 	});
