@@ -304,7 +304,7 @@ sap.ui.define([
 					"$select": "GTMID"
 				},
 				success: function (oData, response) {
-					if (!oData.results[0].GTMID)
+					if (!oData.GTMID)
 						this.getRouter().getTargets().display("objectNotFound");
 					// return;
 				}.bind(this),

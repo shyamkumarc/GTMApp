@@ -1,24 +1,30 @@
 const cds = require('@sap/cds');
 
 module.exports = cds.service.impl (async function() {
-  //const {Books} = cds.entities
-  //const {ID} = await SELECT.one.from(Books).columns('max(ID) as ID')
-  //let newID = ID - ID % 100 + 100
-  //this.on( [ 'CREATE', 'UPDATE' ],'Packages', ( req ) => {  
-  //	if (req.data.GTMStatus_ID)
-  //	{
-  //		console.log("this method is triggered");
-  //		parseInt(req.data.GTMStatus_ID); 
-  //	}
-  //	return req;
-  //} );
-// });
 
+
+this.before ('READ','PackageView', (req)=>{
+   debugger;
+  //delete req.query.SELECT.limit; // clear $top restiction on query - commenting out as DISTINCT alone helps in removing duplicate selection
+  req.query.SELECT.distinct = true;
+  
+});
+
+//------------Not used -------------------//
+// this.on('READ','PackageView', (req)=> {
+//  debugger;
+// }
+// )
+//------------Not used -------------------//
 
 
 
 // module.exports = async function () {
 
+// --------------Remove duplicates by comparing GTMID from returned data--------------//
+
+//No need for this piece as 'DISTINCT' on on.before() method seem to help in rmeoving duplicates
+//Neverthless , keeping this code in place just as a backup 
 	this.after('READ', 'PackageView', (packages, req) => {
 		//unique entries in response
 		if (packages.length > 0){
@@ -47,7 +53,7 @@ module.exports = cds.service.impl (async function() {
 		 newarr.forEach(newline=> packages.push(newline));
 		 console.log(packages);
 		}
-
+// --------------Remove duplicates by comparing GTMID from returned data--------------
 	})
 	
 	

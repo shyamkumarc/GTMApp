@@ -1,10 +1,7 @@
 <mvc:View controllerName="com.sdc.gtmwl.GTM_UI_V2.controller.Object" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:core="sap.ui.core"
 	xmlns:richtext="sap.ui.richtexteditor" xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:m="sap.m"
 	xmlns:semantic="sap.f.semantic">
-	<!--<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false" busy="{objectView>/busy}"-->
-	<!--	busyIndicatorDelay="{objectView>/delay}">-->
-	<!--	<semantic:content>-->
-	<ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true">
+  <ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true">
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 				<expandedHeading>
@@ -12,7 +9,6 @@
 				</expandedHeading>
 				<snappedHeading>
 					<m:FlexBox fitContainer="true" alignItems="Center">
-						<!--<m:Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>-->
 						<m:Title text="{PackageTitle}" wrapping="true"/>
 					</m:FlexBox>
 				</snappedHeading>
@@ -26,8 +22,6 @@
 					<m:Title text="{umbrellaTitle} -{umbrellaTitle} "/>
 				</snappedTitleOnMobile>
 				<actions>
-					<!--<m:OverflowToolbarButton icon="sap-icon://pull-down" text="show section" type="Emphasized" tooltip="pull-down"/>-->
-					<!--<m:OverflowToolbarButton icon="sap-icon://show" text="show state" tooltip="show"/>-->
 					<m:Button text="Save" visible='{=${objectView>/edit}}' press="onSave"/>
 					<m:Button text="Cancel" visible='{=${objectView>/edit}}' press="onCancel"/>
 					<m:Button text="Edit" visible='{=!${objectView>/edit}}' press="onEdit"/>
@@ -48,20 +42,6 @@
 					<m:ObjectStatus text="{GTMStatus/Text}" state="{path:'GTMStatus/Text' , formatter:'.formatStatus'}" class="sapMObjectStatusLarge"/>
 				</m:VBox>
 			</m:FlexBox>
-			<!--<layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">-->
-			<!--<m:Image src="./test-resources/sap/uxap/images/linkedin.png"/>-->
-			<!--<m:Image src="./test-resources/sap/uxap/images/Twitter.png" class="sapUiSmallMarginBegin"/>-->
-			<!--</layout:HorizontalLayout>-->
-			<!--<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">-->
-			<!--	<m:Label text="Hello! I am Denise and I use UxAP"/>-->
-			<!--	<m:VBox>-->
-			<!--		<m:Label text="Achieved goals"/>-->
-			<!--		<m:ProgressIndicator percentValue="30" displayValue="30%"/>-->
-			<!--	</m:VBox>-->
-			<!--</layout:VerticalLayout>-->
-			<!--<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">-->
-			<!--	<m:Label text="San Jose, USA"/>-->
-			<!--</layout:VerticalLayout>-->
 		</headerContent>
 		<sections>
 			<ObjectPageSection id="HeaderSectionD" title="Header" visible='{=!${objectView>/edit}}'>
