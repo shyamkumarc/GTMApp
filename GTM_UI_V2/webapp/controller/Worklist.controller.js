@@ -8,7 +8,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, formatter, Filter, FilterOperator, UriParameters) {
 	"use strict";
 
-	return BaseController.extend("com.sdc.gtmwl.GTM_UI_V2.controller.Worklist", {
+	return BaseController.extend("com.sdc.GTMcatalog.GTMCatalogApp.controller.Worklist", {
 
 		formatter: formatter,
 
@@ -45,15 +45,23 @@ sap.ui.define([
 			this.setModel(oViewModel, "worklistView");
 			this.getRouter().getRoute("worklist").attachPatternMatched(function (oEvent) {
 				debugger;
-				//if passed from OVP - redirect the navigation to detail page
-				var GTMID_OVP = UriParameters.fromQuery(window.location.search).get("GTMID");
-				if (GTMID_OVP) {
-					this.getRouter().navTo("object", {
-						objectId: GTMID_OVP
-					});
-				} else
-					this.byId('smartTable').getModel().refresh();
-			}, this)
+				try {
+					//if passed from OVP - redirect the navigation to detail page
+					if (this.getOwnerComponent().getComponentData().startupParameters["GTMID"]) {
+						var GTMID_OVP = this.getOwnerComponent().getComponentData().startupParameters["GTMID"][0];
+						if (GTMID_OVP) {
+							this.getRouter().navTo("object", {
+								objectId: GTMID_OVP
+							});
+						}
+					} else {
+						this.byId('smartTable').getModel().refresh();
+					}
+				} catch (oError) {
+					debugger;
+				}
+
+			}, this);
 
 			// Make sure, busy indication is showing immediately so there is no
 			// break after the busy indication for loading the view's meta data is
@@ -128,9 +136,8 @@ sap.ui.define([
 				}
 				this._applySearch(aTableSearchState);
 			}
-      
+
 		},
-		
 
 		/**
 		 * Event handler for refresh event. Keeps filter, sort

@@ -1,0 +1,259 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+	<edmx:Reference Uri="/srv_api/v2/catalog/$metadata">
+		<edmx:Include Alias="Metadata" Namespace="CatalogService"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
+	<edmx:DataServices>
+		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GTM_CAP.GTM_UI_V2.annotation0.CatalogService">
+			<Annotations Target="Metadata.Technologies/text">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Technologies_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Value_ID"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="text"/>
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.Packages/GTMStatus_ID">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="GTMStatuses_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+									<PropertyValue Property="LocalDataProperty" PropertyPath="GTMStatus_ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.Technologies">
+				<Annotation Term="Common.Updatable" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.Packages">
+				<Annotation Term="Common.Updatable" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView">
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="umbrellaTitle"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;umbrellaTitleLabel}"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="PackageTitle"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;RESPOSITORY_TITLE}"/>
+						</Record>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="packageType"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;REPOSITORY_TYPE}"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/createdAt">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/createdBy">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/phaseCodes">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PHASE}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Phases_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="phaseCodes"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/solProsCodes">
+				<Annotation Term="Common.Label" String="{@i18n&gt;SOLUTION_PROCESS}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="SolutionProcesses_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="solProsCodes"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/industryCodes">
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Industries_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="industryCodes"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="Common.Label" String="{@i18n&gt;INDUSTRIES}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/technologyCodes">
+				<Annotation Term="Common.Label" String="{@i18n&gt;TECHNOLOGIES}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Technologies_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="technologyCodes"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/Folderlink">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/Comments">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/GTMRESPONSIBLE_ID">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/GTMSTATUS_ID">
+				<Annotation Term="Common.Label" String="{@i18n&gt;statusColumn}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="GTMStatuses_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="GTMSTATUS_ID"/>
+									<PropertyValue Property="ValueListProperty" String="iD"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/PACKAGETYPE_ID">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PACKAGE_TYPE}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="PackageTypes_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="PACKAGETYPE_ID"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/PRACTICE_ID">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
+				<Annotation Term="Common.ValueList">
+					<Record Type="Common.ValueListType">
+						<PropertyValue Property="CollectionPath" String="Practices_all"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="LocalDataProperty" PropertyPath="PRACTICE_ID"/>
+									<PropertyValue Property="ValueListProperty" String="ID"/>
+								</Record>
+								<Record Type="Common.ValueListParameterDisplayOnly">
+									<PropertyValue Property="ValueListProperty" String="Text"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HiddenFilter" Bool="false"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/modifiedBy">
+				<Annotation Term="UI.HiddenFilter"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/modifiedAt">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/GTMID">
+				<Annotation Term="Common.Label" String="{@i18n&gt;REPOSITORY_ID}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/PackageTitle">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.Label" String="{@i18n&gt;REPOSITORY_TITLE}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/umbrellaTitle">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.Label" String="{@i18n&gt;umbrellaTitleLabel}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/status">
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="Common.Label" String="{@i18n&gt;statusColumn}"/>
+			</Annotations>
+			<Annotations Target="Metadata.PackageView/packageType">
+				<Annotation Term="Common.Label" String="{@i18n&gt;PACKAGE_TYPE}"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

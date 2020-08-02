@@ -31,9 +31,13 @@
 					"appId": "ovp.ovp",
 					"vizId": "OVP-Display"
 				}, {
-					"id": "com.sdc.gtmwl.GTM_UI_V2-1-1595859326774",
-					"appId": "com.sdc.gtmwl.GTM_UI_V2",
+					"id": "com.sdc.GTMcatalog.GTMCatalogApp-1-1595859326774",
+					"appId": "com.sdc.GTMcatalog.GTMCatalogApp",
 					"vizId": "Worklist-Display"
+				}, {
+					"id": "com.sdc.GTMcatalog.GTMCatalogApp-2-1596353285514",
+					"appId": "com.sdc.GTMcatalog.GTMCatalogApp",
+					"vizId": "GTMCatalog-Display"
 				}]
 			}
 		}],

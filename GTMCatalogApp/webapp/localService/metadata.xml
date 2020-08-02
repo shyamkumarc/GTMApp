@@ -1,0 +1,388 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+	</edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="CatalogService">
+			<EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="GTMStatuses_all" EntityType="CatalogService.GTMStatuses_all"/>
+				<EntitySet Name="Industries" EntityType="CatalogService.Industries"/>
+				<EntitySet Name="Industries_all" EntityType="CatalogService.Industries_all"/>
+				<EntitySet Name="PackageTypes_all" EntityType="CatalogService.PackageTypes_all"/>
+				<EntitySet Name="PackageView" EntityType="CatalogService.PackageView"/>
+				<EntitySet Name="Packages" EntityType="CatalogService.Packages"/>
+				<EntitySet Name="Phases" EntityType="CatalogService.Phases"/>
+				<EntitySet Name="Phases_all" EntityType="CatalogService.Phases_all"/>
+				<EntitySet Name="Practices_all" EntityType="CatalogService.Practices_all"/>
+				<EntitySet Name="SolProcesses" EntityType="CatalogService.SolProcesses"/>
+				<EntitySet Name="SolutionProcesses_all" EntityType="CatalogService.SolutionProcesses_all"/>
+				<EntitySet Name="Technologies" EntityType="CatalogService.Technologies"/>
+				<EntitySet Name="Technologies_all" EntityType="CatalogService.Technologies_all"/>
+				<EntitySet Name="Users_all" EntityType="CatalogService.Users_all"/>
+				<AssociationSet Name="Industries_GTMID" Association="CatalogService.Industries_GTMID">
+					<End Role="Industries" EntitySet="Industries"/>
+					<End Role="Packages" EntitySet="Packages"/>
+				</AssociationSet>
+				<AssociationSet Name="Industries_Value" Association="CatalogService.Industries_Value">
+					<End Role="Industries" EntitySet="Industries"/>
+					<End Role="Industries_all" EntitySet="Industries_all"/>
+				</AssociationSet>
+				<AssociationSet Name="Packages_Practice" Association="CatalogService.Packages_Practice">
+					<End Role="Packages" EntitySet="Packages"/>
+					<End Role="Practices_all" EntitySet="Practices_all"/>
+				</AssociationSet>
+				<AssociationSet Name="Packages_PackageType" Association="CatalogService.Packages_PackageType">
+					<End Role="Packages" EntitySet="Packages"/>
+					<End Role="PackageTypes_all" EntitySet="PackageTypes_all"/>
+				</AssociationSet>
+				<AssociationSet Name="Packages_GTMStatus" Association="CatalogService.Packages_GTMStatus">
+					<End Role="Packages" EntitySet="Packages"/>
+					<End Role="GTMStatuses_all" EntitySet="GTMStatuses_all"/>
+				</AssociationSet>
+				<AssociationSet Name="Packages_GTMResponsible" Association="CatalogService.Packages_GTMResponsible">
+					<End Role="Packages" EntitySet="Packages"/>
+					<End Role="Users_all" EntitySet="Users_all"/>
+				</AssociationSet>
+				<AssociationSet Name="Phases_GTMID" Association="CatalogService.Phases_GTMID">
+					<End Role="Phases" EntitySet="Phases"/>
+					<End Role="Packages" EntitySet="Packages"/>
+				</AssociationSet>
+				<AssociationSet Name="Phases_Value" Association="CatalogService.Phases_Value">
+					<End Role="Phases" EntitySet="Phases"/>
+					<End Role="Phases_all" EntitySet="Phases_all"/>
+				</AssociationSet>
+				<AssociationSet Name="SolProcesses_GTMID" Association="CatalogService.SolProcesses_GTMID">
+					<End Role="SolProcesses" EntitySet="SolProcesses"/>
+					<End Role="Packages" EntitySet="Packages"/>
+				</AssociationSet>
+				<AssociationSet Name="SolProcesses_Value" Association="CatalogService.SolProcesses_Value">
+					<End Role="SolProcesses" EntitySet="SolProcesses"/>
+					<End Role="SolutionProcesses_all" EntitySet="SolutionProcesses_all"/>
+				</AssociationSet>
+				<AssociationSet Name="Technologies_GTMID" Association="CatalogService.Technologies_GTMID">
+					<End Role="Technologies" EntitySet="Technologies"/>
+					<End Role="Packages" EntitySet="Packages"/>
+				</AssociationSet>
+				<AssociationSet Name="Technologies_Value" Association="CatalogService.Technologies_Value">
+					<End Role="Technologies" EntitySet="Technologies"/>
+					<End Role="Technologies_all" EntitySet="Technologies_all"/>
+				</AssociationSet>
+			</EntityContainer>
+			<EntityType Name="GTMStatuses_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="Industries">
+				<Key>
+					<PropertyRef Name="GTMID_GTMID"/>
+					<PropertyRef Name="Value_ID"/>
+				</Key>
+				<NavigationProperty Name="GTMID" Relationship="CatalogService.Industries_GTMID" FromRole="Industries" ToRole="Packages"/>
+				<NavigationProperty Name="Value" Relationship="CatalogService.Industries_Value" FromRole="Industries" ToRole="Industries_all"/>
+				<Property Name="text" Type="Edm.String"/>
+				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
+			</EntityType>
+			<EntityType Name="Industries_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="PackageTypes_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="PackageView">
+				<Key>
+					<PropertyRef Name="GTMID"/>
+				</Key>
+				<Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="PRACTICE_ID" Type="Edm.Int32"/>
+				<Property Name="PACKAGETYPE_ID" Type="Edm.Int32"/>
+				<Property Name="PackageTitle" Type="Edm.String"/>
+				<Property Name="umbrellaTitle" Type="Edm.String"/>
+				<Property Name="GTMSTATUS_ID" Type="Edm.Int32"/>
+				<Property Name="GTMRESPONSIBLE_ID" Type="Edm.String"/>
+				<Property Name="Comments" Type="Edm.String"/>
+				<Property Name="Folderlink" Type="Edm.String"/>
+				<Property Name="technologyCodes" Type="Edm.Int32"/>
+				<Property Name="industryCodes" Type="Edm.Int32"/>
+				<Property Name="solProsCodes" Type="Edm.Int32"/>
+				<Property Name="phaseCodes" Type="Edm.Int32"/>
+				<Property Name="status" Type="Edm.String"/>
+				<Property Name="packageType" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="Packages">
+				<Key>
+					<PropertyRef Name="GTMID"/>
+				</Key>
+				<Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+				<Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+				<Property Name="GTMID" Type="Edm.Int32" Nullable="false"/>
+				<NavigationProperty Name="Practice" Relationship="CatalogService.Packages_Practice" FromRole="Packages" ToRole="Practices_all"/>
+				<NavigationProperty Name="PackageType" Relationship="CatalogService.Packages_PackageType" FromRole="Packages" ToRole="PackageTypes_all"/>
+				<Property Name="PackageTitle" Type="Edm.String"/>
+				<Property Name="umbrellaTitle" Type="Edm.String"/>
+				<NavigationProperty Name="GTMStatus" Relationship="CatalogService.Packages_GTMStatus" FromRole="Packages" ToRole="GTMStatuses_all"/>
+				<NavigationProperty Name="GTMResponsible" Relationship="CatalogService.Packages_GTMResponsible" FromRole="Packages" ToRole="Users_all"/>
+				<NavigationProperty Name="Technologies" Relationship="CatalogService.Technologies_GTMID" FromRole="Packages" ToRole="Technologies"/>
+				<NavigationProperty Name="SolPros" Relationship="CatalogService.SolProcesses_GTMID" FromRole="Packages" ToRole="SolProcesses"/>
+				<NavigationProperty Name="Industries" Relationship="CatalogService.Industries_GTMID" FromRole="Packages" ToRole="Industries"/>
+				<NavigationProperty Name="Phases" Relationship="CatalogService.Phases_GTMID" FromRole="Packages" ToRole="Phases"/>
+				<Property Name="Comments" Type="Edm.String"/>
+				<Property Name="Folderlink" Type="Edm.String"/>
+				<Property Name="Practice_ID" Type="Edm.Int32"/>
+				<Property Name="PackageType_ID" Type="Edm.Int32"/>
+				<Property Name="GTMStatus_ID" Type="Edm.Int32"/>
+				<Property Name="GTMResponsible_ID" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="Phases">
+				<Key>
+					<PropertyRef Name="GTMID_GTMID"/>
+					<PropertyRef Name="Value_ID"/>
+				</Key>
+				<NavigationProperty Name="GTMID" Relationship="CatalogService.Phases_GTMID" FromRole="Phases" ToRole="Packages"/>
+				<NavigationProperty Name="Value" Relationship="CatalogService.Phases_Value" FromRole="Phases" ToRole="Phases_all"/>
+				<Property Name="text" Type="Edm.String"/>
+				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
+			</EntityType>
+			<EntityType Name="Phases_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="Practices_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="SolProcesses">
+				<Key>
+					<PropertyRef Name="GTMID_GTMID"/>
+					<PropertyRef Name="Value_ID"/>
+				</Key>
+				<NavigationProperty Name="GTMID" Relationship="CatalogService.SolProcesses_GTMID" FromRole="SolProcesses" ToRole="Packages"/>
+				<NavigationProperty Name="Value" Relationship="CatalogService.SolProcesses_Value" FromRole="SolProcesses" ToRole="SolutionProcesses_all"/>
+				<Property Name="text" Type="Edm.String"/>
+				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
+			</EntityType>
+			<EntityType Name="SolutionProcesses_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="Technologies">
+				<Key>
+					<PropertyRef Name="GTMID_GTMID"/>
+					<PropertyRef Name="Value_ID"/>
+				</Key>
+				<NavigationProperty Name="GTMID" Relationship="CatalogService.Technologies_GTMID" FromRole="Technologies" ToRole="Packages"/>
+				<NavigationProperty Name="Value" Relationship="CatalogService.Technologies_Value" FromRole="Technologies" ToRole="Technologies_all"/>
+				<Property Name="text" Type="Edm.String"/>
+				<Property Name="GTMID_GTMID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Value_ID" Type="Edm.Int32" Nullable="false"/>
+			</EntityType>
+			<EntityType Name="Technologies_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Text" Type="Edm.String"/>
+			</EntityType>
+			<EntityType Name="Users_all">
+				<Key>
+					<PropertyRef Name="ID"/>
+				</Key>
+				<Property Name="ID" Type="Edm.String" Nullable="false"/>
+				<Property Name="Name" Type="Edm.String"/>
+			</EntityType>
+			<Association Name="Industries_GTMID">
+				<End Role="Industries" Type="CatalogService.Industries" Multiplicity="*"/>
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Packages">
+						<PropertyRef Name="GTMID"/>
+					</Principal>
+					<Dependent Role="Industries">
+						<PropertyRef Name="GTMID_GTMID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Industries_Value">
+				<End Role="Industries" Type="CatalogService.Industries" Multiplicity="*"/>
+				<End Role="Industries_all" Type="CatalogService.Industries_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Industries_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Industries">
+						<PropertyRef Name="Value_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Packages_Practice">
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="*"/>
+				<End Role="Practices_all" Type="CatalogService.Practices_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Practices_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Packages">
+						<PropertyRef Name="Practice_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Packages_PackageType">
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="*"/>
+				<End Role="PackageTypes_all" Type="CatalogService.PackageTypes_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="PackageTypes_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Packages">
+						<PropertyRef Name="PackageType_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Packages_GTMStatus">
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="*"/>
+				<End Role="GTMStatuses_all" Type="CatalogService.GTMStatuses_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="GTMStatuses_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Packages">
+						<PropertyRef Name="GTMStatus_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Packages_GTMResponsible">
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="*"/>
+				<End Role="Users_all" Type="CatalogService.Users_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Users_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Packages">
+						<PropertyRef Name="GTMResponsible_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Phases_GTMID">
+				<End Role="Phases" Type="CatalogService.Phases" Multiplicity="*"/>
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Packages">
+						<PropertyRef Name="GTMID"/>
+					</Principal>
+					<Dependent Role="Phases">
+						<PropertyRef Name="GTMID_GTMID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Phases_Value">
+				<End Role="Phases" Type="CatalogService.Phases" Multiplicity="*"/>
+				<End Role="Phases_all" Type="CatalogService.Phases_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Phases_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Phases">
+						<PropertyRef Name="Value_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="SolProcesses_GTMID">
+				<End Role="SolProcesses" Type="CatalogService.SolProcesses" Multiplicity="*"/>
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Packages">
+						<PropertyRef Name="GTMID"/>
+					</Principal>
+					<Dependent Role="SolProcesses">
+						<PropertyRef Name="GTMID_GTMID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="SolProcesses_Value">
+				<End Role="SolProcesses" Type="CatalogService.SolProcesses" Multiplicity="*"/>
+				<End Role="SolutionProcesses_all" Type="CatalogService.SolutionProcesses_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="SolutionProcesses_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="SolProcesses">
+						<PropertyRef Name="Value_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Technologies_GTMID">
+				<End Role="Technologies" Type="CatalogService.Technologies" Multiplicity="*"/>
+				<End Role="Packages" Type="CatalogService.Packages" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Packages">
+						<PropertyRef Name="GTMID"/>
+					</Principal>
+					<Dependent Role="Technologies">
+						<PropertyRef Name="GTMID_GTMID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Association Name="Technologies_Value">
+				<End Role="Technologies" Type="CatalogService.Technologies" Multiplicity="*"/>
+				<End Role="Technologies_all" Type="CatalogService.Technologies_all" Multiplicity="0..1"/>
+				<ReferentialConstraint>
+					<Principal Role="Technologies_all">
+						<PropertyRef Name="ID"/>
+					</Principal>
+					<Dependent Role="Technologies">
+						<PropertyRef Name="Value_ID"/>
+					</Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.PackageView/createdBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.PackageView/modifiedBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Packages/createdBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="CatalogService.Packages/modifiedBy">
+				<Annotation Term="Common.Label" String="User ID"/>
+				<Annotation Term="Core.Description" String="User's unique ID"/>
+			</Annotations>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

@@ -8,9 +8,9 @@ FROM  "GTM_DATAMODEL_MCINDUSTRIES" as indmaster
 left outer join  "GTM_DATAMODEL_TXINDUSTRIES" as ind
 on ind.VALUE_ID = indmaster.ID
 left outer join  "GTM_DATAMODEL_TXPACKAGES" as packages
-on packages.GTMID = ind.GTMID_GTMID and packages.DELETIONINDICATOR <> 'X'
+on packages.GTMID = ind.GTMID_GTMID and packages.DELETIONINDICATOR is null
 left outer join  "GTM_DATAMODEL_MCPRACTICES" as practice
-on packages.GTMID = practice.ID
+on packages.PRACTICE_ID = practice.ID
 
 group by practice.ID ,practice.TEXT, indmaster.ID, indmaster.TEXT
 order by indmaster.ID,practice.ID

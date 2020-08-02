@@ -5,8 +5,10 @@ VIEW  GTM_DATAMODEL_PACKAGESVIEW as SELECT
 	"solprosname"."ID" AS solProsCodes,
 	"phasename"."ID" AS phaseCodes,
 	"status"."TEXT" AS status,
+	"user"."NAME" AS contactPerson,
+	"user"."EMAIL" AS contactEmail,
 	"ptype"."TEXT" AS packageType
-FROM 
+	FROM 
 	"GTM_DATAMODEL_TXPACKAGES" AS "packages"
 	LEFT OUTER JOIN
 	"GTM_DATAMODEL_TXTECHNOLOGIES" AS "tech"
@@ -38,4 +40,7 @@ FROM
 	LEFT OUTER JOIN
 	"GTM_DATAMODEL_MCGTMSTATUSES" AS "status"
 	ON "status"."ID" = "packages"."GTMSTATUS_ID"
+		LEFT OUTER JOIN
+	"GTM_DATAMODEL_MDUSERS" AS "user"
+	ON "user"."ID" = "packages"."GTMRESPONSIBLE_ID"
 	where "packages"."DELETIONINDICATOR" IS NULL ;

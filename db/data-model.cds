@@ -1,5 +1,5 @@
 namespace GTM.dataModel;
-using { User, Country, managed } from '@sap/cds/common';
+using { User, Country, managed, cuid } from '@sap/cds/common';
 
 
 @cds.persistence.exists
@@ -22,8 +22,34 @@ industryCodes: Integer;
 solProsCodes: Integer;
 phaseCodes: Integer;
 status: String;
+packageType : String;
+contactEmail: String;
+contactPerson: String
+}
+
+@cds.persistence.exists
+  entity PackagesAliasView: managed  {
+createdAt  : Timestamp @cds.on.insert : $now;
+createdBy  : User      @cds.on.insert : $user;
+modifiedAt : Timestamp @cds.on.insert : $now  @cds.on.update : $now;
+modifiedBy : User      @cds.on.insert : $user @cds.on.update : $user;
+ GTMID : Integer;
+ PRACTICE_ID : Integer;
+PACKAGETYPE_ID: Integer;
+PackageTitle : String;
+umbrellaTitle : String;
+GTMSTATUS_ID : Integer;
+GTMRESPONSIBLE_ID: String;
+Comments : String;
+Folderlink : String;
+// technologyCodes : Integer;
+// industryCodes: Integer;
+// solProsCodes: Integer;
+// phaseCodes: Integer;
+status: String;
 packageType : String
 }
+
 
 @cds.persistence.exists
 entity PackagesbyPractice{
@@ -91,6 +117,14 @@ key Value : association to MCPhases;
 text : String
 }
 
+entity TXTags: cuid {
+GTMID : association to TXPackages;
+technologyCodes : association to MDTechnologies;
+industryCodes: association to MCIndustries;
+solProsCodes: association to MCSolutionProcesses;
+phaseCodes: association to MCPhases;
+}
+
 
 
 
@@ -104,12 +138,13 @@ Text : String
 }
 entity MDUsers {
 key ID : String;
-Name : String
+Name : String;
+Email : String
 }
 entity MDTechnologies {
 key ID : Integer;
 Text : String
-}
+} 
 entity MCSolutionProcesses {
 key ID : Integer;
 Text : String

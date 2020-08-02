@@ -16,11 +16,14 @@ entity PackageTypes_all as projection on dataModel.MCPackageTypes;
 entity GTMStatuses_all as projection on dataModel.MCGTMStatuses ;
 entity PackageView as  
 select from dataModel.PackagesView  { * , key GTMID } ;
+entity PackagesAliasView as  
+select from dataModel.PackagesAliasView { * , key GTMID } ;
 entity PackagesbyPracticeTech as 
 select from dataModel.PackagesbyPracticeTech  { * , key technologyCodes , key PRACTICE_ID };
 entity PackagesbyPracticeInd as  
-select from dataModel.PackagesbyPracticeInd  { * , key industryCodes , key PRACTICE_ID} ;
+select from dataModel.PackagesbyPracticeInd  { * , key industryCodes , key PRACTICE_ID } ;
 entity PackagesbyPractice as  
 select from dataModel.PackagesbyPractice  { * , key PRACTICE_ID } ;
+entity PackageTags as projection on dataModel.TXTags;
 
 }

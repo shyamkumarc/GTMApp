@@ -91,7 +91,7 @@
 	},
 	"sap.ovp": {
 		"globalFilterModel": "catalog",
-		"globalFilterEntityType": "PackageView",
+		"globalFilterEntityType": "PackagesAliasView",
 		"containerLayout": "resizable",
 		"enableLiveFilter": false,
 		"considerAnalyticalParameters": false,
@@ -101,7 +101,7 @@
 				"template": "sap.ovp.cards.stack",
 				"settings": {
 					"title": "Preview",
-					"entitySet": "PackageView",
+					"entitySet": "PackagesAliasView",
 					"subTitle": "Quick view Repo. Items",
 					"objectStreamCardsSettings": {
 						"annotationPath": "com.sap.vocabularies.UI.v1.Facets#stack"
@@ -151,7 +151,7 @@
 				"template": "sap.ovp.cards.list",
 				"settings": {
 					"title": "{{card04_title}}",
-					"entitySet": "PackageView",
+					"entitySet": "PackagesAliasView",
 					"listType": "extended",
 					"listFlavor": "standard",
 					"sortBy": "modifiedAt",

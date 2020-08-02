@@ -1,0 +1,41 @@
+VIEW  GTM_DATAMODEL_PACKAGESALIASVIEW  as SELECT 
+	"packages".*,
+	-- "techname"."ID" AS technologyCodes,
+	-- "indname"."ID" AS industryCodes,
+	-- "solprosname"."ID" AS solProsCodes,
+	-- "phasename"."ID" AS phaseCodes,
+	"status"."TEXT" AS status,
+	"ptype"."TEXT" AS packageType
+FROM 
+	"GTM_DATAMODEL_TXPACKAGES" AS "packages"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_TXTECHNOLOGIES" AS "tech"
+	-- ON "tech"."GTMID_GTMID" = "packages"."GTMID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_MDTECHNOLOGIES" AS "techname"
+	-- ON "techname"."ID" = "tech"."VALUE_ID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_TXINDUSTRIES" AS "ind"
+	-- ON "ind"."GTMID_GTMID" = "packages"."GTMID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_MCINDUSTRIES" AS "indname"
+	-- ON "indname"."ID" = "ind"."VALUE_ID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_TXSOLPROS" AS "solpros"
+	-- ON "solpros"."GTMID_GTMID" = "packages"."GTMID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_MCINDUSTRIES" AS "solprosname"
+	-- ON "solprosname"."ID" = "solpros"."VALUE_ID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_TXPHASES" AS "phase"
+	-- ON "phase"."GTMID_GTMID" = "packages"."GTMID"
+	-- LEFT OUTER JOIN
+	-- "GTM_DATAMODEL_MCINDUSTRIES" AS "phasename"
+	-- ON "phasename"."ID" = "phase"."VALUE_ID"
+	LEFT OUTER JOIN
+	"GTM_DATAMODEL_MCPACKAGETYPES" AS "ptype"
+	ON "ptype"."ID" = "packages"."PACKAGETYPE_ID"
+	LEFT OUTER JOIN
+	"GTM_DATAMODEL_MCGTMSTATUSES" AS "status"
+	ON "status"."ID" = "packages"."GTMSTATUS_ID"
+	where "packages"."DELETIONINDICATOR" IS NULL ;

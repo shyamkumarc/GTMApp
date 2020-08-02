@@ -10,7 +10,7 @@
 	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="GTM_CAP.ovp.annotation0.CatalogService">
-			<Annotations Target="Metadata.PackageView">
+			<Annotations Target="Metadata.PackagesAliasView">
 				<Annotation Term="UI.Identification" Qualifier="header">
 					<Collection>
 						<Record Type="UI.DataFieldForIntentBasedNavigation">
@@ -117,7 +117,7 @@
 			<Annotations Target="Metadata.PackagesbyPractice">
 				<Annotation Term="UI.Chart" Qualifier="ColumnTime">
 					<Record Type="UI.ChartDefinitionType">
-						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column"/>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
 						<PropertyValue Property="MeasureAttributes">
 							<Collection>
 								<Record Type="UI.ChartMeasureAttributeType">
@@ -146,7 +146,7 @@
 			<Annotations Target="Metadata.PackagesbyPracticeInd">
 				<Annotation Term="UI.Chart" Qualifier="DonutChart">
 					<Record Type="UI.ChartDefinitionType">
-						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Donut"/>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked"/>
 						<PropertyValue Property="MeasureAttributes">
 							<Collection>
 								<Record Type="UI.ChartMeasureAttributeType">
@@ -215,7 +215,7 @@
 			<Annotations Target="Metadata.PackagesbyPracticeTech/PRACTICE_TEXT">
 				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
 			</Annotations>
-			<Annotations Target="Metadata.PackageView/PRACTICE_ID">
+			<Annotations Target="Metadata.PackagesAliasView/PRACTICE_ID">
 				<Annotation Term="Common.Label" String="{@i18n&gt;PRACTICE}"/>
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">

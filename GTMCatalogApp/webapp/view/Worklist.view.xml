@@ -1,0 +1,68 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:semantic="sap.f.semantic"
+	controllerName="com.sdc.GTMcatalog.GTMCatalogApp.controller.Worklist" height="100%" xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:vm="sap.ui.comp.variants">
+	<f:DynamicPage id="dynamicPageId" headerExpanded="true">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<vm:VariantManagement standardItemText="ACG GTM Catalog"></vm:VariantManagement>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Header -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<fb:FilterBar id="filterBar"   reset="onReset" search="onSearchFB"  useToolbar="false" showGoOnFB="true">
+						<fb:filterItems>
+							<fb:FilterItem name="A" label="Technologies">
+								<fb:control>
+									<MultiComboBox id="MCTech" selectionFinish="onSelectChange" items="{ path: '/Technologies_all' }">
+										<core:Item key="{ID}" text="{Text}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="B" label="Solution Processes">
+								<fb:control>
+									<MultiComboBox id="MCSolPros" selectionFinish="onSelectChange" items="{ path: '/SolutionProcesses_all' }">
+										<core:Item key="{ID}" text="{Text}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="C" label="Industries">
+								<fb:control>
+									<MultiComboBox id="MCInd" selectionFinish="onSelectChange" items="{ path: '/Industries_all' }">
+										<core:Item key="{ID}" text="{Text}"/>
+									</MultiComboBox>
+								</fb:control>
+							</fb:FilterItem>
+						</fb:filterItems>
+					</fb:FilterBar>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<!-- DynamicPage Content -->
+		<f:content class="sapUiResponsiveContentPadding">
+			<List id="GTMList" class="sapFDynamicPageAlignContent" width="auto" items="{/PackageView}" headerText="Repository Items">
+				<ObjectListItem title="{PackageTitle}" number="{status}" numberState="{ path:'GTMSTATUS_ID', formatter:'.formatStatus'}">
+					<firstStatus>
+						<ObjectStatus title="Contact" text="{contactPerson}"/>
+					</firstStatus>
+					<secondStatus>
+					<ObjectStatus text="{contactEmail}" active="true" press="handleEmailPress"/>
+					</secondStatus>
+					<!--<secondStatus></secondStatus>-->
+					<ObjectAttribute text="{umbrellaTitle}"/>
+					<ObjectAttribute text="{packageType}"/>
+					<ObjectAttribute text="More Details" active="true">
+						<customContent>
+							<Link text="More Details" target="_blank" href="{Folderlink}"/>
+						</customContent>
+					</ObjectAttribute>
+				</ObjectListItem>
+			</List>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

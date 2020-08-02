@@ -13,13 +13,13 @@ modules:
     requires:
       - name: GTM_CAP_html5_repo_runtime
       - name: GTM_CAP_uaa
+      - name: portal_resources_GTM_CAP
       - name: srv_api
         group: destinations
         properties:
           forwardAuthToken: true
           name: srv_api
           url: '~{url}'
-      - name: portal_resources_GTM_CAP
   - name: GTM_CAP_ui_deployer
     type: com.sap.html5.application-content
     path: GTM_CAP_ui_deployer
@@ -35,6 +35,10 @@ modules:
           artifacts:
             - './*'
           target-path: resources/GTM_UI_V2
+        - name: GTMCatalogApp
+          artifacts:
+            - './*'
+          target-path: resources/GTMCatalogApp
   - name: GTM_CAP-db
     type: hdb
     path: db
@@ -88,6 +92,16 @@ modules:
       - name: GTM_CAP_uaa
       - name: GTM_CAP_html5_repo_host
       - name: GTM_CAP_ui_deployer
+  - name: GTMCatalogApp
+    type: html5
+    path: GTMCatalogApp
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+      build-result: dist
 resources:
   - name: GTM_CAP_html5_repo_runtime
     parameters:
@@ -119,4 +133,9 @@ resources:
     parameters:
       service-plan: standard
       service: portal
+    type: org.cloudfoundry.managed-service
+  - name: dest_GTM_CAP
+    parameters:
+      service-plan: lite
+      service: destination
     type: org.cloudfoundry.managed-service
