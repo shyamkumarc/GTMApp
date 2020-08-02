@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (Opa5, mockserver, ODataModel) {
 	"use strict";
 
-	return Opa5.extend("com.sdc.GTMcatalog.GTMCatalogApp.test.integration.arrangements.Startup", {
+	return Opa5.extend("com.sdc.GTMcatalog.GTMWorklistApp.test.integration.arrangements.Startup", {
 
 		/**
 		 * Initializes mock server, then starts the app component
@@ -29,7 +29,7 @@ sap.ui.define([
 			// start the app UI component
 			this.iStartMyUIComponent({
 				componentConfig: {
-					name: "com.sdc.GTMcatalog.GTMCatalogApp",
+					name: "com.sdc.GTMcatalog.GTMWorklistApp",
 					async: true
 				},
 				hash: oOptions.hash,

@@ -26,4 +26,4 @@ builder:
       configuration:
         destDir: dist
         appFolder: webapp
-        nameSpace: com/sdc/gtmwl
+        nameSpace: com/sdc/GTMcatalog/GTMWorklistApp

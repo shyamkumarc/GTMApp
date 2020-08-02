@@ -8,7 +8,7 @@ sap.ui.define([
 	// shortcut for sap.m.URLHelper
 	var URLHelper = mobileLibrary.URLHelper;
 
-	return Controller.extend("com.sdc.GTMcatalog.GTMCatalogApp.controller.BaseController", {
+	return Controller.extend("com.sdc.GTMcatalog.GTMWorklistApp.controller.BaseController", {
 		/**
 		 * Convenience method for accessing the router.
 		 * @public

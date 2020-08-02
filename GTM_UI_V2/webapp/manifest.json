@@ -1,7 +1,7 @@
 {
 	"_version": "1.12.0",
 	"sap.app": {
-		"id": "com.sdc.GTMcatalog.GTMCatalogApp",
+		"id": "com.sdc.GTMcatalog.GTMWorklistApp",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"title": "{{appTitle}}",
@@ -64,7 +64,7 @@
 	},
 	"sap.ui5": {
 		"rootView": {
-			"viewName": "com.sdc.GTMcatalog.GTMCatalogApp.view.App",
+			"viewName": "com.sdc.GTMcatalog.GTMWorklistApp.view.App",
 			"type": "XML",
 			"async": true,
 			"id": "app"
@@ -85,7 +85,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "com.sdc.GTMcatalog.GTMCatalogApp.i18n.i18n"
+					"bundleName": "com.sdc.GTMcatalog.GTMWorklistApp.i18n.i18n"
 				}
 			},
 			"": {
@@ -105,7 +105,7 @@
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
-				"viewPath": "com.sdc.GTMcatalog.GTMCatalogApp.view",
+				"viewPath": "com.sdc.GTMcatalog.GTMWorklistApp.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"bypassed": {

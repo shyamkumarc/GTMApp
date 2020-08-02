@@ -31,11 +31,11 @@
 					"appId": "ovp.ovp",
 					"vizId": "OVP-Display"
 				}, {
-					"id": "com.sdc.GTMcatalog.GTMCatalogApp-1-1595859326774",
-					"appId": "com.sdc.GTMcatalog.GTMCatalogApp",
+					"id": "com.sdc.GTMcatalog.GTMWorklistApp-1-1596358503222",
+					"appId": "com.sdc.GTMcatalog.GTMWorklistApp",
 					"vizId": "Worklist-Display"
 				}, {
-					"id": "com.sdc.GTMcatalog.GTMCatalogApp-2-1596353285514",
+					"id": "com.sdc.GTMcatalog.GTMCatalogApp-2-1596358503222",
 					"appId": "com.sdc.GTMcatalog.GTMCatalogApp",
 					"vizId": "GTMCatalog-Display"
 				}]

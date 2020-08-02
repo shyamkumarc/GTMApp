@@ -17,7 +17,7 @@ sap.ui.define([
 	MessageToast, Text) {
 	"use strict";
 	var addedTokens = [];
-	return BaseController.extend("com.sdc.GTMcatalog.GTMCatalogApp.controller.Object", {
+	return BaseController.extend("com.sdc.GTMcatalog.GTMWorklistApp.controller.Object", {
 
 		formatter: formatter,
 
@@ -350,7 +350,7 @@ sap.ui.define([
 			if (!this._multiSelectVHDialog) {
 				Fragment.load({
 					id: "valueHelpDialog",
-					name: "com.sdc.GTMcatalog.GTMCatalogApp.view.fragments.multiSelectVHDialog",
+					name: "com.sdc.GTMcatalog.GTMWorklistApp.view.fragments.multiSelectVHDialog",
 					controller: this
 				}).then(function (oValueHelpDialog) {
 					this._multiSelectVHDialog = oValueHelpDialog;

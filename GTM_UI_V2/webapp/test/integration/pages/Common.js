@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (Opa5, mockserver) {
 	"use strict";
 
-	return Opa5.extend("com.sdc.GTMcatalog.GTMCatalogApp.test.integration.pages.Common", {
+	return Opa5.extend("com.sdc.GTMcatalog.GTMWorklistApp.test.integration.pages.Common", {
 
 
 		getEntitySet: function (sEntitySet) {

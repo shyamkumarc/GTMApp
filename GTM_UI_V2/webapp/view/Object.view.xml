@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.sdc.GTMcatalog.GTMCatalogApp.controller.Object" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:core="sap.ui.core"
+<mvc:View controllerName="com.sdc.GTMcatalog.GTMWorklistApp.controller.Object" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:core="sap.ui.core"
 	xmlns:richtext="sap.ui.richtexteditor" xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:m="sap.m"
 	xmlns:semantic="sap.f.semantic">
   <ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true">

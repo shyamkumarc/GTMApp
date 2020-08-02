@@ -1,6 +1,6 @@
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-	xmlns:semantic="sap.f.semantic" controllerName="com.sdc.GTMcatalog.GTMCatalogApp.controller.Worklist" height="100%">
+	xmlns:semantic="sap.f.semantic" controllerName="com.sdc.GTMcatalog.GTMWorklistApp.controller.Worklist" height="100%">
 	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
 		<semantic:content>
 			<VBox fitContainer="true">
@@ -57,7 +57,7 @@
 		<!--</semantic:sendEmailAction>-->
 	</semantic:SemanticPage>
 </mvc:View>
-<!--<mvc:View controllerName="com.sdc.GTMcatalog.GTMCatalogApp.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"-->
+<!--<mvc:View controllerName="com.sdc.GTMcatalog.GTMWorklistApp.controller.Worklist" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc"-->
 <!--	xmlns:semantic="sap.f.semantic">-->
 <!--	<semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">-->
 <!--		<semantic:titleHeading>-->

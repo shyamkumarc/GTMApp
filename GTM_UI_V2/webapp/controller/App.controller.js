@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel) {
 	"use strict";
 
-	return BaseController.extend("com.sdc.GTMcatalog.GTMCatalogApp.controller.App", {
+	return BaseController.extend("com.sdc.GTMcatalog.GTMWorklistApp.controller.App", {
 
 		onInit : function () {
 			var oViewModel,

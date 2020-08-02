@@ -117,6 +117,8 @@ resources:
     type: com.sap.xs.hdi-container
     parameters:
       service-name: GTM_HDI
+      service-plan: hdi-shared
+      service: hanatrial
     properties:
       hdi-container-name: '${service-name}'
   - name: GTM_CAP_uaa

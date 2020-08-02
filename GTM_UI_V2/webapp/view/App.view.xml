@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="com.sdc.GTMcatalog.GTMCatalogApp.controller.App"
+	controllerName="com.sdc.GTMcatalog.GTMWorklistApp.controller.App"
 	displayBlock="true"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">

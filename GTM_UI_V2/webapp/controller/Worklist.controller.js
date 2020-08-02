@@ -8,7 +8,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, formatter, Filter, FilterOperator, UriParameters) {
 	"use strict";
 
-	return BaseController.extend("com.sdc.GTMcatalog.GTMCatalogApp.controller.Worklist", {
+	return BaseController.extend("com.sdc.GTMcatalog.GTMWorklistApp.controller.Worklist", {
 
 		formatter: formatter,
 
